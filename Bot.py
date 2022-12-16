@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import json
 import random
+import os
 
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
@@ -27,26 +28,9 @@ async def on_member_remove(member):
     channel = bot.get_channel(int(jdata["leave_channel"]))
     await channel.send(f'{member}leave!')
 
-@bot.command()
-async def ping(ctx): #ctx (上下文，回覆的上下關係) 
-    #A：嗨(上文)(使用者，ID，伺服器，頻道)
-    #B：安安(下文)
-    await ctx.send(f'{round(bot.latency*1000)}(ms)') #預設單位為秒
+for filename in os.listdir("./cmds"):
+    if filename.endswith(".py"):
+        bot.load_extension(f'cmds.{filename[:-3]}')
 
-@bot.command()
-async def 單一圖片(ctx):
-    pic = discord.File(jdata['pic'])
-    await ctx.send(file=pic)
-
-@bot.command()
-async def 圖片(ctx):
-    random_pic = random.choice(jdata['randompic'])
-    rpic = discord.File(random_pic)
-    await ctx.send(file=rpic)
-
-@bot.command()
-async def web(ctx):
-    random_pic = random.choice(jdata['url_pic'])
-    await ctx.send(random_pic)
 
 bot.run(jdata["TOKEN"])
