@@ -10,5 +10,5 @@ class Main(Cog_Extension):
         #B：安安(下文)
         await ctx.send(f'{round(self.bot.latency*1000)}(ms)') #預設單位為秒
 
-def setup(bot):
-    bot.add_cog(Main(bot))
+async def setup(bot):
+    await bot.add_cog(Main(bot))
