@@ -11,26 +11,18 @@ with open("Setting.json","r",encoding='utf8') as jFile:
 
 intents = discord.Intents.all()
 intents.members = True
+    #1.5後的權限設置
 
 bot = commands.Bot(command_prefix='$',intents=intents)
+    #機器人符號(指令前的符號)
 
 @bot.event
 async def on_ready():
-    print(">>Bot is online<<")
+    print(">>機器人已上線<<")
     await bot.load_extension("cmds.main")
     await bot.load_extension("cmds.react")
+    await bot.load_extension("cmds.event")
 
-@bot.event
-async def on_member_join(member):
-    print(f'{member}join!')
-    channel = bot.get_channel(int(jdata["join_channel"]))
-    await channel.send(f'{member}join!')
-
-@bot.event
-async def on_member_remove(member):
-    print(f'{member}leave!')
-    channel = bot.get_channel(int(jdata["leave_channel"]))
-    await channel.send(f'{member}leave!')
 
 @bot.command()
 async def load(ctx,extension):
@@ -45,7 +37,7 @@ async def unload(ctx,extension):
 @bot.command()
 async def reload(ctx,extension):
     await bot.reload_extension(f'cmds.{extension}')
-    await ctx.send(f'從新載入{extension}!')
+    await ctx.send(f'重新載入{extension}!')
     
 async def load_extensions(): 
     for filename in os.listdir("./cmds"):
