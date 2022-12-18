@@ -4,6 +4,8 @@ import json
 import random
 import os
 
+os.chdir("C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot")
+
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
@@ -14,7 +16,7 @@ bot = commands.Bot(command_prefix='$',intents=intents)
 
 @bot.event
 async def on_readey():
-    print(">>機器人在線<<")
+    print(">>Bot is online<<")
 
 @bot.event
 async def on_member_join(member):
@@ -28,9 +30,25 @@ async def on_member_remove(member):
     channel = bot.get_channel(int(jdata["leave_channel"]))
     await channel.send(f'{member}leave!')
 
-for filename in os.listdir("./cmds"):
-    if filename.endswith(".py"):
-        bot.load_extension(f'cmds.{filename[:-3]}')
+@bot.command()
+async def load(ctx,extension):
+    bot.load_extension(f'cmds.{extension}')
+    await ctx.send(f'已載入{extension}!')
 
+@bot.command()
+async def unload(ctx,extension):
+    bot.unload_extension(f'cmds.{extension}')
+    await ctx.send(f'已卸載{extension}!')
 
-bot.run(jdata["TOKEN"])
+@bot.command()
+async def reload(ctx,extension):
+    bot.reload_extension(f'cmds.{extension}')
+    await ctx.send(f'從新載入{extension}!')
+    
+async def load_extensions(): 
+    for filename in os.listdir("./cmds"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f'cmds.{filename[:-3]}')
+
+if __name__ == "__main__":
+    bot.run(jdata["TOKEN"])
