@@ -15,8 +15,10 @@ intents.members = True
 bot = commands.Bot(command_prefix='$',intents=intents)
 
 @bot.event
-async def on_readey():
+async def on_ready():
     print(">>Bot is online<<")
+    await bot.load_extension("cmds.main")
+    await bot.load_extension("cmds.react")
 
 @bot.event
 async def on_member_join(member):
@@ -32,17 +34,17 @@ async def on_member_remove(member):
 
 @bot.command()
 async def load(ctx,extension):
-    bot.load_extension(f'cmds.{extension}')
+    await bot.load_extension(f'cmds.{extension}')
     await ctx.send(f'已載入{extension}!')
 
 @bot.command()
 async def unload(ctx,extension):
-    bot.unload_extension(f'cmds.{extension}')
+    await bot.unload_extension(f'cmds.{extension}')
     await ctx.send(f'已卸載{extension}!')
 
 @bot.command()
 async def reload(ctx,extension):
-    bot.reload_extension(f'cmds.{extension}')
+    await bot.reload_extension(f'cmds.{extension}')
     await ctx.send(f'從新載入{extension}!')
     
 async def load_extensions(): 
