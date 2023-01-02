@@ -18,10 +18,11 @@ bot = commands.Bot(command_prefix='$',intents=intents)
 
 @bot.event
 async def on_ready():
-    print(">>機器人已上線<<")
+    print("-------->>機器人已上線<<--------")
     await bot.load_extension("cmds.main")
     await bot.load_extension("cmds.react")
     await bot.load_extension("cmds.event")
+    await bot.load_extension("cmds.task")
 
 
 @bot.command()
@@ -37,7 +38,7 @@ async def unload(ctx,extension):
 @bot.command()
 async def reload(ctx,extension):
     await bot.reload_extension(f'cmds.{extension}')
-    await ctx.send(f'重新載入{extension}!')
+    await ctx.send(f'已重新載入{extension}!')
     
 async def load_extensions(): 
     for filename in os.listdir("./cmds"):

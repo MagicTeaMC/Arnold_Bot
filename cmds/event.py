@@ -12,29 +12,36 @@ class Event(Cog_Extension):
         #成員加入
         print(f'{member}加入!')
         channel = self.bot.get_channel(int(jdata["join_channel"]))
-        await channel.send(f'@{member}加入水果伺服器!')
+        await channel.send(f'@{member}加入伺服器!')
 
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
         print(f'{member}離開!')
         channel = self.bot.get_channel(int(jdata["leave_channel"]))
-        await channel.send(f'@{member}離開了水果伺服器!')
+        await channel.send(f'@{member}離開了伺服器!')
 
     @commands.Cog.listener()
     async def on_message(self,msg):
-        #多關鍵字回覆
-        keyword = ['apple','pie','pen']
-        if msg.content in keyword and msg.author != self.bot.user:
+        #on_message必須寫在一個def裡
+        keyword = ['banana','pie','pen']
+        if (msg.content in keyword) and (msg.author != self.bot.user):
+            #多關鍵字回覆
             print ("有人輸入多關鍵字的其一")
-            await msg.channel.send("hi")
+            await msg.channel.send("hi1")#回覆字元
+        if msg.content == ("apple") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            #特定關鍵字回覆
+            print ("有人輸入apple")
+            await msg.channel.send("hi") #回覆字元
 
+'''
     @commands.Cog.listener()
     async def on_message(self,msg):
         #特定關鍵字回覆
-        if msg.content == ("apple")and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+        if msg.content == ("apple") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("有人輸入apple")
             await msg.channel.send("hi") #回覆字元
+'''
 
 async def setup(bot):
     await bot.add_cog(Event(bot))
