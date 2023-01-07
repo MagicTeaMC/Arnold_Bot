@@ -11,6 +11,28 @@ class Task(Cog_Extension):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
 
+  async def time_task():
+      await self.bot.wait_until_ready()
+      self.channel = self.bot.get_channel(1053893211539644416)
+      while not self.bot.is_closed():
+        await self.channel.send("Hi! I'am running!")
+        await asyncio.sleep(3600) 
+        #單位為秒
+
+  self.bg_task=self.bot.loop.create_task(interval())
+
+  @commands.command()
+  async def set_time(self,ctx,time:int):
+    with open("Setting.json","r",encoding='utf8') as jFile:
+      jdata = json.load(jFile)
+
+    jdata["time"] = time
+    with open("Setting.json","w",encoding='utf8') as jFile:
+      json.dump(jFile,jFile,indent=4)
+
+
+
+'''
     async def interval():
       await self.bot.wait_until_ready()
       self.channel = self.bot.get_channel(1053893211539644416)
@@ -25,6 +47,7 @@ class Task(Cog_Extension):
   async def set_channel(self,ctx,ch:int):
     self.channel=self.bot.get_channel(ch)
     await ctx.send(f'設定頻道：{self.channel.mention}')
+'''
 
 
 def setup(bot):
