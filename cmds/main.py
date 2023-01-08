@@ -13,7 +13,7 @@ class Main(Cog_Extension):
         await ctx.send(f'{round(self.bot.latency*1000)}(ms)') #預設單位為秒
 
     @commands.command()
-    async def em(self,ctx):
+    async def 功能(self,ctx):
         #崁入功能-> https://cog-creators.github.io/discord-embed-sandbox/
         embed=discord.Embed(title="功能", color=0x2fe7f4,
         timestamp=datetime.datetime.now())
