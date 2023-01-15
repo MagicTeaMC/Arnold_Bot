@@ -33,7 +33,27 @@ class Event(Cog_Extension):
             #特定關鍵字回覆
             print ("有人輸入apple")
             await msg.channel.send("hi") #回覆字元
+        
+        if msg.content == ("早安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("早安")
+            await msg.channel.send("早上好啊" )
 
+        if msg.content == ("午安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("午安")
+            await msg.channel.send("吃午餐了嗎?" )
+
+        if msg.content == ("晚安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("晚安")
+            await msg.channel.send("晚安，去睡覺了" )
+
+        if msg.content == ("你好") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("你好")
+            await msg.channel.send("你好啊" )
+
+        if msg.content == ("確實") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("確實")
+            pic = discord.File(jdata['pic'])
+            await msg.channel.send(file=pic)
 '''
     @commands.Cog.listener()
     async def on_message(self,msg):
