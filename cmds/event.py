@@ -24,15 +24,11 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_message(self,msg):
         #on_message必須寫在一個def裡
-        keyword = ['banana','pie','pen']
-        if (msg.content in keyword) and (msg.author != self.bot.user):
-            #多關鍵字回覆
-            print ("有人輸入多關鍵字的其一")
-            await msg.channel.send("hi1")#回覆字元
-        if msg.content == ("apple") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+        
+        if msg.content == ("apple") : #關鍵字
             #特定關鍵字回覆
             print ("有人輸入apple")
-            await msg.channel.send("hi") #回覆字元
+            await msg.channel.send("水果伺服器歡迎你") #回覆字元
         
         if msg.content == ("早安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("早安")
@@ -52,7 +48,7 @@ class Event(Cog_Extension):
 
         if msg.content == ("確實") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("確實")
-            pic = discord.File(jdata['pic'])
+            pic = discord.File(jdata['確實'])
             await msg.channel.send(file=pic)
 '''
     @commands.Cog.listener()
@@ -61,6 +57,12 @@ class Event(Cog_Extension):
         if msg.content == ("apple") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("有人輸入apple")
             await msg.channel.send("hi") #回覆字元
+
+        keyword = ['banana','pie','pen']
+        if (msg.content in keyword) and (msg.author != self.bot.user):
+            #多關鍵字回覆
+            print ("有人輸入多關鍵字的其一")
+            await msg.channel.send("hi1")#回覆字元
 '''
 
 async def setup(bot):
