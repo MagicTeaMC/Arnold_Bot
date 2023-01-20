@@ -43,5 +43,10 @@ class Main(Cog_Extension):
       await ctx.channel.purge(limit=num+1,reason=reason1)
       print("清理了",num,"則訊息,因為",reason1)
 
+    @commands.command()
+    async def random(self,ctx):
+        print(ctx.guild.members)
+        #await ctx.send(ctx.guild.members)
+
 async def setup(bot):
     await bot.add_cog(Main(bot))

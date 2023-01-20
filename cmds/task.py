@@ -30,8 +30,8 @@ class Task(Cog_Extension):
           self.counter = 0
           pass
 
-  self.bg_task=self.bot.loop.create_task(time_task())
-
+  #self.bg_task=self.bot.loop.create_task(time_task())
+'''
   @commands.command()
   async def set_time(self,ctx,time:int):
     self.counter = 0 
@@ -43,8 +43,6 @@ class Task(Cog_Extension):
       json.dump(jFile,jFile,indent=4)
 
     
-
-'''
     async def interval():
       await self.bot.wait_until_ready()
       self.channel = self.bot.get_channel(1053893211539644416)
