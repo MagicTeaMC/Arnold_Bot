@@ -56,7 +56,7 @@ class Event(Cog_Extension):
             pic = discord.File(jdata['不知道'])
             await msg.channel.send(file=pic)
 
-        if msg.content == ("犯法") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+        if msg.content == ("你犯法") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("犯法")
             pic = discord.File(jdata['犯法'])
             await msg.channel.send(file=pic)

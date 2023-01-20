@@ -44,7 +44,7 @@ class Main(Cog_Extension):
         embed.add_field(name="你好", value="問候", inline=True)
         embed.add_field(name="確實", value="梗圖", inline=True)
         embed.add_field(name="不知道", value="梗圖", inline=True)
-        embed.add_field(name="犯法", value="梗圖", inline=True)
+        embed.add_field(name="你犯法", value="梗圖", inline=True)
         embed.add_field(name="我沒錢", value="梗圖", inline=True)
         embed.add_field(name="你有強迫症", value="梗圖", inline=True)
         embed.add_field(name="TNT拿來", value="梗圖", inline=True)
