@@ -1,6 +1,4 @@
-# Arnold_Bot
-
-<Setting.json設定>
+setting.json
 
     "TOKEN":"機器人TOKEN",
     "join_channel":"輸入傳送加入訊息的頻道ID",
