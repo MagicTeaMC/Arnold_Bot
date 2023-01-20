@@ -22,6 +22,13 @@ class React(Cog_Extension):
         await ctx.send(file=rpic)
 
     @commands.command()
+    async def 原神圖片(self, ctx):
+            #多種圖片隨機傳送
+        random_pic = random.choice(jdata['原神隨機圖'])
+        rpic = discord.File(random_pic)
+        await ctx.send(file=rpic)
+
+    @commands.command()
     async def web(self, ctx):
             #網路圖片->去setting設定
         random_pic = random.choice(jdata['url_pic'])
