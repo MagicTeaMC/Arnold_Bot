@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from core.classes import Cog_Extension
 import datetime
+import random
 
 class Main(Cog_Extension):
 
@@ -68,8 +69,15 @@ class Main(Cog_Extension):
 
     @commands.command()
     async def random(self,ctx):
-        print(ctx.guild.members)
-        #await ctx.send(ctx.guild.members)
+        online = []
+        for member in ctx.guild.members:
+            if str(member.status) == 'online':
+                online.append(member)
+
+        random_online = []
+        for x in random.sample(online,k=5):
+            print(x)
+
 
 async def setup(bot):
     await bot.add_cog(Main(bot))
