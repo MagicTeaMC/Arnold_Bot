@@ -50,6 +50,38 @@ class Event(Cog_Extension):
             print ("確實")
             pic = discord.File(jdata['確實'])
             await msg.channel.send(file=pic)
+
+        if msg.content == ("不知道"): #and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("不知道")
+            pic = discord.File(jdata['不知道'])
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("犯法") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("犯法")
+            pic = discord.File(jdata['犯法'])
+            await msg.channel.send(file=pic)
+            await msg.channel.send("不知道")
+
+        if msg.content == ("我沒錢") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("我沒錢")
+            pic = discord.File(jdata['沒錢'])
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("氣死") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("氣死")
+            pic = discord.File(jdata['氣死'])
+            await msg.channel.send("起司??")
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("你有強迫症") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("強迫症")
+            pic = discord.File(jdata['強迫症'])
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("TNT拿來") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("TNT")
+            pic = discord.File(jdata['TNT'])
+            await msg.channel.send(file=pic)
 '''
     @commands.Cog.listener()
     async def on_message(self,msg):
