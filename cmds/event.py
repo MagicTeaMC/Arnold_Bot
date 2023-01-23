@@ -22,6 +22,17 @@ class Event(Cog_Extension):
         await channel.send(f'@{member}離開了伺服器!')
 
     @commands.Cog.listener()
+    async def on_raw_reaction_add(self,data):
+        #1.新增反應 --> data
+        print(data.member,data.emoji)
+        if data.emoji == '<:white_check_mark:>': #2.確認圖案
+            guild = self.get_guild(data.guild_id)
+            role = guild.get_role(1065019704999153684)
+            #3.給予身分
+            data.member.add_roles(role)
+    
+
+    @commands.Cog.listener()
     async def on_message(self,msg):
         #on_message必須寫在一個def裡
         
@@ -81,6 +92,21 @@ class Event(Cog_Extension):
         if msg.content == ("TNT拿來") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("TNT")
             pic = discord.File(jdata['TNT'])
+            await msg.channel.send(file=pic)
+        
+        if msg.content == ("NoTag") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("NoTag")
+            pic = discord.File(jdata['NoTag'])
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("好問題") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("好問題")
+            pic = discord.File(jdata['好問題'])
+            await msg.channel.send(file=pic)
+
+        if msg.content == ("XD"or"xd") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("XD")
+            pic = discord.File(jdata['XD'])
             await msg.channel.send(file=pic)
 '''
     @commands.Cog.listener()

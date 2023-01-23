@@ -78,6 +78,16 @@ class Main(Cog_Extension):
         for x in random.sample(online,k=5):
             print(x)
 
+#group群組
+#subcommand 子命令
+    @commands.group()
+    async def codetest(self,ctx):
+        await ctx.send("Group")
+
+    @codetest.command()
+    async def python(self,ctx):
+        await ctx.send("python")
+
 
 async def setup(bot):
     await bot.add_cog(Main(bot))
