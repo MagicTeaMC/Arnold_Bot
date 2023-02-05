@@ -13,3 +13,5 @@ setting.json
                 "隨機圖片位置5"],
                     #可自行增加
     "url_pic":["$web圖片，網路圖片網址"]
+
+https://github.com/ChenArnold/Arnold_Bot

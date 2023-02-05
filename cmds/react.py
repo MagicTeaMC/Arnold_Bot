@@ -36,5 +36,14 @@ class React(Cog_Extension):
 
 
 
+'''
+    @commands.command()
+    async def giverole(self, ctx, member: discord.Member):
+        guild=self.bot.get_guild(你的伺服器id)
+        role =guild.get_role(身分組id)
+        await member.add_roles(role)
+'''
+
+
 async def setup(bot):
     await bot.add_cog(React(bot))
