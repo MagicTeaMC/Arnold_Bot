@@ -11,3 +11,6 @@ class Member(Cog_Extension):
         async def kick(self,user1:discord.User,reason1:str):
             self.channel = self.bot.get_channel(1065029468084785182)
             await self.channel.kick(user=user1,  reason=reason1)
+
+async def setup(bot):
+    await bot.add_cog(Main(bot))

@@ -128,7 +128,7 @@ class Event(Cog_Extension):
             print ("XD")
             pic = discord.File(jdata['XD'])
             await msg.channel.send(file=pic)
-
+'''
         # 預設錯誤訊息
         error = []
 
@@ -187,6 +187,8 @@ class Event(Cog_Extension):
             else:
                 await message.channel.send(error)
 '''
+'''
+
     @commands.Cog.listener()
     async def on_message(self,msg):
         #特定關鍵字回覆
