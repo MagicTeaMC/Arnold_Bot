@@ -10,16 +10,30 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self,member):
         #成員加入
-        print(f'{member}加入!')
+        print(f'{member} 加入 {member.guild} 伺服器!')
         channel = self.bot.get_channel(int(jdata["join_channel"]))
-        await channel.send(f'@{member}加入伺服器!')
+        await channel.send(f'{member} 加入 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
-        print(f'{member}離開!')
+        print(f'{member}離開了{member.guild}伺服器!')
         channel = self.bot.get_channel(int(jdata["leave_channel"]))
-        await channel.send(f'@{member}離開了伺服器!')
+        await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+
+    @commands.Cog.listener()
+    async def on_member_ban(self,guild,member):
+        #成員離開 
+        print(f'{member} 被BAN離了 {guild} 伺服器!')
+        channel = self.bot.get_channel(int(jdata["leave_channel"]))
+        await channel.send(f'{member} 被BAN離了 {guild} 伺服器!')
+
+    @commands.Cog.listener()
+    async def on_member_unban(self,guild,member):
+        #成員離開
+        print(f'{member}UNBAN!')
+        channel = self.bot.get_channel(int(jdata["leave_channel"]))
+        await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self,data):
@@ -52,6 +66,10 @@ class Event(Cog_Extension):
         if msg.content == ("晚安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("晚安")
             await msg.channel.send("晚安，去睡覺了" )
+
+        if msg.content == ("凌晨安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            print ("凌晨安")
+            await msg.channel.send("閉嘴，你凌晨起來幹嘛 ||打炮?||" )
 
         if msg.content == ("你好") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
             print ("你好")

@@ -34,6 +34,7 @@ async def on_ready():
     await bot.load_extension("cmds.react")
     await bot.load_extension("cmds.event")
     await bot.load_extension("cmds.task")
+    await bot.load_extension("cmds.mamber")
 
 
 @bot.command()

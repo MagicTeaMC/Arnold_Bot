@@ -64,6 +64,12 @@ class Main(Cog_Extension):
         #複誦
         await ctx.send(msg)
         print("被逼說：",msg)
+    
+    @commands.command()
+    #傳送私人訊息
+    async def DM(ctx, user: discord.User, *, message=None):
+        message = message or "This Message is sent via DM"
+        await user.send(message)
 
     @commands.command()
     async def clean(self,ctx,num:int,reason1):
@@ -79,7 +85,7 @@ class Main(Cog_Extension):
 
         random_online = []
         for x in random.sample(online,k=5):
-            print(x)
+            await ctx.send(x)
 
 #group群組
 #subcommand 子命令
