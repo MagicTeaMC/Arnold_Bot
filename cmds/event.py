@@ -40,12 +40,22 @@ class Event(Cog_Extension):
     async def on_raw_reaction_add(self,data):
         #1.新增反應 --> data
         print(data.member,data.emoji)
+        if str(data.emoji) == '💀' and str(data.message_id) == str(1065035240298528909) and str(data.guild_id) == str(1064894808419737640): #2.確認圖案
+            print('輸入💀')
+            guild = self.get_guild(data.guild_id)
+            role = guild.get_role(1072291170249613404)
+            #3.給予身分
+            await data.member.add_roles(role)
+    
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self,data):
+        #1.新增反應 --> data
+        print(data.member,data.emoji)
         if str(data.emoji) == '<:white_check_mark:>' and str(data.message_id) == str(1065035240298528909) and str(data.guild_id) == str(1064894808419737640): #2.確認圖案
             guild = self.get_guild(data.guild_id)
             role = guild.get_role(1065019704999153684)
             #3.給予身分
-            await data.member.add_roles(role)
-    
+            await data.member.remove_roles(role)
 
 
     @commands.Cog.listener()
@@ -128,65 +138,7 @@ class Event(Cog_Extension):
             print ("XD")
             pic = discord.File(jdata['XD'])
             await msg.channel.send(file=pic)
-'''
-        # 預設錯誤訊息
-        error = []
 
-        # 處理輸入文字
-        content = msg.content.replace(' ', '').lower()
-
-        # 如果是「!roll」開頭的訊息
-        if msg.content.startswith('!roll') and msg.author != self.bot.user:
-            content = content.replace('!roll', '')
-
-            # 骰子數量計算
-            dice_cont = content.split('d')[0]
-
-            try:
-                dice_cont = int(dice_cont)
-
-            except ValueError:
-                error.append('擲出多少個骰子必須是整數！')
-
-            # 骰子類型判斷
-            content = content.split('d')[1]
-            dice_type = content.split('>')[0]
-            try:
-                dice_type = int(dice_type)
-
-            except ValueError:
-                error.append('骰子類型必須是整數！')
-
-            # 成功判斷
-            if '>' in content:
-                success = content.split('>')[1]
-                try:
-                    success = int(success)    
-                except ValueError:
-                    error.append('成功條件必須是整數！')
-
-            else:
-                success = 0
-
-            if len(error) == 0:
-                success_count = 0
-                result_msg = ''
-
-                # 擲骰子
-                results = [random.randint(1, dice_type) for _ in range(dice_cont)]
-
-                for result in results:
-                    if success > 0 and result >= success:
-                        success_count += 1
-                    result_msg += f'`{result}`, '
-                
-                await message.channel.send(result_msg)
-
-                if success > 0:
-                    await message.channel.send(f'Success: `{success_count}`')
-            else:
-                await message.channel.send(error)
-'''
 '''
 
     @commands.Cog.listener()

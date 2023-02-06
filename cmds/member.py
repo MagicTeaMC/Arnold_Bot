@@ -12,5 +12,7 @@ class Member(Cog_Extension):
             self.channel = self.bot.get_channel(1065029468084785182)
             await self.channel.kick(user=user1,  reason=reason1)
 
+
+
 async def setup(bot):
-    await bot.add_cog(Main(bot))
+    await bot.add_cog(Member(bot))
