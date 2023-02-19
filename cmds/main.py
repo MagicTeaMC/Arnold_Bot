@@ -2,7 +2,12 @@ import discord
 from discord.ext import commands
 from core.classes import Cog_Extension
 import datetime
+import json
 import random
+
+with open("Setting.json","r",encoding='utf8') as jFile:
+    jdata = json.load(jFile)
+
 
 class Main(Cog_Extension):
 
@@ -31,6 +36,8 @@ class Main(Cog_Extension):
         embed.add_field(name="其他", value="其實還有其他內容，等你去發現🤣", inline=False)
         await ctx.send(embed=embed)
         print("有人召喚了功能說明")
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚了功能說明!')
 
     @commands.command()
     async def 回覆(self,ctx):
@@ -55,6 +62,8 @@ class Main(Cog_Extension):
         embed.add_field(name="XD、xd", value="", inline=False)
         await ctx.send(embed=embed)
         print("有人召喚了回覆說明")
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚了回覆說明!')
 
     @commands.command()
     async def say(self,ctx,*,msg):
@@ -64,6 +73,8 @@ class Main(Cog_Extension):
         #複誦
         await ctx.send(msg)
         print("被逼說：",msg)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 逼我說 {msg} !')
     
     @commands.command()
     #傳送私人訊息
@@ -73,8 +84,10 @@ class Main(Cog_Extension):
 
     @commands.command()
     async def clean(self,ctx,num:int,reason1):
-      await ctx.channel.purge(limit=num+1,reason=reason1)
-      print("清理了",num,"則訊息,因為",reason1)
+        await ctx.channel.purge(limit=num+1,reason=reason1)
+        print("清理了",num,"則訊息,因為",reason1)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 清除了 {num} 則訊息，因為 {reason1} !')
 
     @commands.command()
     async def random(self,ctx):

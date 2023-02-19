@@ -2,6 +2,7 @@
     "TOKEN":"MTA1MDUyNDEzMTEzMDYwOTc5NQ.G86OLA.86u79f6mEj1t70woUwObkgPPNIpwcHpdwAcv3k",
     "join_channel":"1065021019338850465",
     "leave_channel":"1065021019338850465",
+    "後台":"1072744126409343036",
 
     "time":"0600",
     "pic":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\螢幕擷取畫面 2022-11-14 214127.jpg",
@@ -16,7 +17,9 @@
                 "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\心海.jpg",
                 "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\胡桃.jpg",
                 "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\甘雨1.jpg",
-                "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\胡桃2.jpg"],
+                "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\胡桃2.jpg",
+                "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\凌華1.jpg",
+                "C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\雷神.jpg"],
     "確實":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\確實.jpg",
     "不知道":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\不知道.jpg",
     "犯法":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\犯法.png",
@@ -27,5 +30,6 @@
     "NoTag":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\NOTAG.mov",
     "好問題":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\好問題.jpg",
     "XD":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\xd.jpg",
+    "simon":"C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot\\pictrue\\simon.jpg",
     "url_pic":["https://school.tc.edu.tw/open-message/193518/get-file/637cda26a53e5f23a2784ab0.jpg"]
 }
