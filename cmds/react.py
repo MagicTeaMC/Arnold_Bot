@@ -4,6 +4,7 @@ from core.classes import Cog_Extension
 import random
 import json
 
+
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
@@ -42,7 +43,7 @@ class React(Cog_Extension):
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚網路隨機圖片!')
 
-
+    
 
 '''
     @commands.command()
