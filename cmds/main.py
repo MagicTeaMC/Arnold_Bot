@@ -16,7 +16,7 @@ class Main(Cog_Extension):
 
     class MyModal(Modal):
         def __init__(self) -> None:
-            super().__init__("A Modal") #title of the modal up top
+            super().__init__("加入鷹之國公會") #title of the modal up top
             self.add_item(InputText(label="Short Input", placeholder="Placeholder")) 
             self.add_item(
                 InputText(
