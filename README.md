@@ -15,3 +15,5 @@ setting.json
     "url_pic":["$web圖片，網路圖片網址"]
 
 https://github.com/ChenArnold/Arnold_Bot
+1064894808419737640 水
+1078082303256969317 鷹

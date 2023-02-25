@@ -14,6 +14,7 @@ os.chdir("C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot")
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
+
 intents = discord.Intents.all()
 intents.members = True
     #1.5後的權限設置

@@ -11,30 +11,66 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self,member):
         #成員加入
-        print(f'{member} 加入 {member.guild} 伺服器!')
-        channel = self.bot.get_channel(int(jdata["join_channel"]))
-        await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+        if int(member.guild.id)==int(1064894808419737640)():
+            print(f'{member} 加入 {member.guild} 伺服器!')
+            channel = self.bot.get_channel(int(jdata["join_channel"]))
+            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+        elif int(member.guild.id)==int(1078082303256969317)():
+            print(f'{member} 加入 {member.guild} 伺服器!')
+            channel = self.bot.get_channel(int(jdata["bird_channel"]))
+            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+        else:
+            print(f'{member} 加入 {member.guild} 伺服器!')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
-        print(f'{member}離開了{member.guild}伺服器!')
-        channel = self.bot.get_channel(int(jdata["leave_channel"]))
-        await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+        if int(member.guild.id)==int(1064894808419737640)():
+            print(f'{member}離開了{member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["join_channel"]))
+            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+        elif int(member.guild.id)==int(1078082303256969317)():
+            print(f'{member}離開了{member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["bird_channel"]))
+            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+        else:
+            print(f'{member}離開了{member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_ban(self,guild,member):
         #成員離開 
-        print(f'{member} 被BAN離了 {guild} 伺服器!')
-        channel = self.bot.get_channel(int(jdata["leave_channel"]))
-        await channel.send(f'{member} 被BAN離了 {guild} 伺服器!')
+        if int(member.guild.id)==int(1064894808419737640)():
+            print(f'{member} 被BAN離了 {member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["join_channel"]))
+            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
+        elif int(member.guild.id)==int(1078082303256969317)():
+            print(f'{member} 被BAN離了 {member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["bird_channel"]))
+            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
+        else:
+            print(f'{member} 被BAN離了 {member.guild}伺服器!')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_unban(self,guild,member):
         #成員離開
-        print(f'{member}UNBAN!')
-        channel = self.bot.get_channel(int(jdata["leave_channel"]))
-        await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+        if int(member.guild.id)==int(1064894808419737640)():
+            print(f'{member} 在 {member.guild} UNBAN!')
+            channel = self.bot.get_channel(int(jdata["join_channel"]))
+            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+        elif int(member.guild.id)==int(1078082303256969317)():
+            print(f'{member} 在 {member.guild} UNBAN!')
+            channel = self.bot.get_channel(int(jdata["bird_channel"]))
+            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+        else:
+            print(f'{member} 在 {member.guild} UNBAN!')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self,data):
@@ -48,6 +84,7 @@ class Event(Cog_Extension):
             role = guild.get_role(1074134841676800030)
             #3.給予身分
             await data.member.add_roles(role,reason="新增反映後台身分")
+            await data.member.send(f"你取得了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self,data):
@@ -58,9 +95,26 @@ class Event(Cog_Extension):
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f"{data.member} 移除 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
+            user = guild.get_member(data.user_id)
             role = guild.get_role(1074134841676800030)
             #3.給予身分
-            await data.member.remove_roles(role,reason="移除反映後台身分")
+            await user.remove_roles(role,reason="移除反映後台身分")
+            await user.send(f"你移除了 {role} 這個身分組!")
+
+    @commands.Cog.listener()
+    async def on_message_delete(self,msg):
+        counter = 1
+        async for audilog in msg.guild.audit_logs(action=discord.AuditLogAction.message_delete):
+            if counter == 1:
+                if msg.guild.id == int(1064894808419737640):
+                        self.channel = self.bot.get_channel(1066150094790992033)
+                        embed=discord.Embed(title="訊息刪除", color=0xff0000)
+                        embed.add_field(name="被刪除訊息", value=msg.content, inline=False)
+                        embed.add_field(name="原作者", value=msg.author, inline=True)
+                        embed.add_field(name="刪除者", value=audilog.user.name, inline=True)
+                        await self.channel.send(embed=embed)
+                counter += 1
+    
 
     
     @commands.Cog.listener()

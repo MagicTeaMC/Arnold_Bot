@@ -4,12 +4,39 @@ from core.classes import Cog_Extension
 import datetime
 import json
 import random
+from discord.ui import InputText, Modal
 
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
 
 class Main(Cog_Extension):
+
+    servers = []
+
+    class MyModal(Modal):
+        def __init__(self) -> None:
+            super().__init__("A Modal") #title of the modal up top
+            self.add_item(InputText(label="Short Input", placeholder="Placeholder")) 
+            self.add_item(
+                InputText(
+                    label= "Long Input", 
+                    value= "Default", #sort of like a default
+                    style=discord.InputTextStyle.long, #long/short
+                )
+            )
+
+        async def callback(self, interaction: discord.Interaction):
+            embed = discord.Embed(title="Your Modal Results", color=discord.Color.blurple())
+            embed.add_field(name="First Input", value=self.children[0].value, inline=False)
+            embed.add_field(name="Second Input", value=self.children[1].value, inline=False)
+            await interaction.response.send_message(embeds=[embed])
+
+    @commands.slash_command(guild_ids = servers, name= "modal")
+    async def test(ctx):
+        modal = MyModal()
+        await ctx.interaction.response.send_modal(modal)
+
 
     @commands.command()
     async def ping(self,ctx): 
