@@ -136,122 +136,162 @@ class Event(Cog_Extension):
     async def on_message(self,msg):
         #on_message必須寫在一個def裡
         
-        if msg.content == ("apple") : #關鍵字
-            #特定關鍵字回覆
-            print ("有人輸入apple")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("水果伺服器歡迎你") #回覆字元
-        
-        if msg.content == ("早安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("早安")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("早上好啊" )
+        if msg.channel.id == int(1078082303294705714)and msg.author != self.bot.user:
+            IsEnterMcId = 0
+            IsEnterDcId = 0
+            IsEnterOtherGuild = 0
+            JoinOtherGuild = ""
+            McId = ""
+            DcId = ""
+            if msg.content == ("加入公會") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                await msg.channel.send("請輸入在Minecraft的ID" )
+                IsEnterMcId = 1
+            if IsEnterMcId == 1 and msg.author != self.bot.user:
+                McId = msg.content
+                IsEnterMcId = 0
+                IsEnterDcId = 1
+                await msg.channel.send("請輸入Discord名稱，須包含 #後4位數")
+            if IsEnterDcId == 1 and msg.author != self.bot.user:
+                DcId = msg.content
+                IsEnterDcId = 0
+                IsEnterOtherGuild = 1
+                await msg.channel.send("請輸入加入的其他公會，若無加入請輸入「0」")
+            if IsEnterOtherGuild == 1 and msg.author != self.bot.user:
+                JoinOtherGuild = msg.content
+                IsEnterOtherGuild = 0
+                await msg.channel.send("您成功加入公會")
+                
+                channel = self.bot.get_channel(int(jdata["加入公會"]))
+                embed=discord.Embed(title="加入公會", color=0x2febf9)
+                embed.add_field(name="Minecraft ID", value=McId, inline=True)
+                embed.add_field(name="Discord ID", value=DcId, inline=True)
+                embed.add_field(name="加入的其他公會", value=JoinOtherGuild, inline=False)
+                await channel.send(embed=embed)
+                IsEnterMcId = 0
+                IsEnterDcId = 0
+                IsEnterOtherGuild = 0
+                JoinOtherGuild = ""
+                McId = ""
+                DcId = ""
+            
 
-        if msg.content == ("午安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("午安")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("吃午餐了嗎?" )
+        else:
+            if msg.content == ("apple") : #關鍵字
+                #特定關鍵字回覆
+                print ("有人輸入apple")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("水果伺服器歡迎你") #回覆字元
+            
+            if msg.content == ("早安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("早安")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("早上好啊" )
 
-        if msg.content == ("晚安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("晚安")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("晚安，去睡覺了" )
+            if msg.content == ("午安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("午安")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("吃午餐了嗎?" )
 
-        if msg.content == ("凌晨安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("凌晨安")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("閉嘴，你凌晨起來幹嘛 ||打炮?||" )
+            if msg.content == ("晚安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("晚安")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("晚安，去睡覺了" )
 
-        if msg.content == ("你好") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("你好")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            await msg.channel.send("你好啊" )
+            if msg.content == ("凌晨安") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("凌晨安")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("閉嘴，你凌晨起來幹嘛 ||打炮?||" )
 
-        if msg.content == ("確實") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("確實")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['確實'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("你好") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("你好")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await msg.channel.send("你好啊" )
 
-        if msg.content == ("不知道"): #and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("不知道")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['不知道'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("確實") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("確實")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['確實'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("你犯法") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("犯法")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['犯法'])
-            await msg.channel.send(file=pic)
-            await msg.channel.send("不知道")
+            if msg.content == ("不知道"): #and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("不知道")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['不知道'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("我沒錢") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("我沒錢")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['沒錢'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("你犯法") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("犯法")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['犯法'])
+                await msg.channel.send(file=pic)
+                await msg.channel.send("不知道")
 
-        if msg.content == ("氣死") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("氣死")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['氣死'])
-            await msg.channel.send("起司??")
-            await msg.channel.send(file=pic)
+            if msg.content == ("我沒錢") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("我沒錢")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['沒錢'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("你有強迫症") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("強迫症")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['強迫症'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("氣死") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("氣死")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['氣死'])
+                await msg.channel.send("起司??")
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("TNT拿來") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("TNT")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['TNT'])
-            await msg.channel.send(file=pic)
-        
-        if msg.content == ("NoTag") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("NoTag")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['NoTag'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("你有強迫症") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("強迫症")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['強迫症'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("好問題") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("好問題")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['好問題'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("TNT拿來") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("TNT")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['TNT'])
+                await msg.channel.send(file=pic)
+            
+            if msg.content == ("NoTag") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("NoTag")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['NoTag'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("XD"or"xd") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("XD")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
-            pic = discord.File(jdata['XD'])
-            await msg.channel.send(file=pic)
+            if msg.content == ("好問題") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("好問題")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['好問題'])
+                await msg.channel.send(file=pic)
 
-        if msg.content == ("R.I.P.") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-            print ("R.I.P.")
-            channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}，然後simon104002是真的死了")
-            pic = discord.File(jdata['simon'])
-            await msg.channel.send(file=pic)
-            await msg.send("好可惜，他死了")
+            if msg.content == ("XD"or"xd") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("XD")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                pic = discord.File(jdata['XD'])
+                await msg.channel.send(file=pic)
+
+            if msg.content == ("R.I.P.") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+                print ("R.I.P.")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}，然後simon104002是真的死了")
+                pic = discord.File(jdata['simon'])
+                await msg.channel.send(file=pic)
+                await msg.send("好可惜，他死了")
 
 
 '''

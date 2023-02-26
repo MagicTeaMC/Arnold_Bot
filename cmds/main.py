@@ -4,7 +4,7 @@ from core.classes import Cog_Extension
 import datetime
 import json
 import random
-from discord.ui import InputText, Modal
+#from discord_ui import InputText, Modal
 
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
@@ -12,32 +12,36 @@ with open("Setting.json","r",encoding='utf8') as jFile:
 
 class Main(Cog_Extension):
 
-    servers = []
-
-    class MyModal(Modal):
-        def __init__(self) -> None:
-            super().__init__("加入鷹之國公會") #title of the modal up top
-            self.add_item(InputText(label="Short Input", placeholder="Placeholder")) 
-            self.add_item(
-                InputText(
-                    label= "Long Input", 
-                    value= "Default", #sort of like a default
-                    style=discord.InputTextStyle.long, #long/short
-                )
-            )
-
-        async def callback(self, interaction: discord.Interaction):
-            embed = discord.Embed(title="Your Modal Results", color=discord.Color.blurple())
-            embed.add_field(name="First Input", value=self.children[0].value, inline=False)
-            embed.add_field(name="Second Input", value=self.children[1].value, inline=False)
-            await interaction.response.send_message(embeds=[embed])
-
-    @commands.slash_command(guild_ids = servers, name= "modal")
-    async def test(ctx):
-        modal = MyModal()
-        await ctx.interaction.response.send_modal(modal)
-
-
+    '''
+    @commands.command()
+    async def test(self,ctx):
+        modal = discord.ui.Modal()#你的參數
+        modal.add_item(InputText({
+            "title": "My Cool Modal",
+            "custom_id": "cool_modal",
+            "components": [{
+                "type": 1,
+                "components": [{
+                "type": 4,
+                "custom_id": "name",
+                "label": "Name",
+                "style": 1,
+                "min_length": 1,
+                "max_length": 4000,
+                "placeholder": "John",
+                "required": true
+                }]
+            }]
+        }))#輸入框的參數
+        
+        async def m1(interaction):
+            await interaction.response.send_message()#你要回復的東西
+        
+        modal.callback = m1 #當modal按提交後的動作,上面已定義。
+        
+        await ctx.send_modal(modal) #發送modal
+    '''
+        
     @commands.command()
     async def ping(self,ctx): 
         #ctx (上下文，回覆的上下關係) 

@@ -28,18 +28,24 @@ bot = commands.Bot(command_prefix='$',intents=intents)
 #bot.add_cog(music_cog(bot))
 
 
-for filename in os.listdir('./cmds'):
-  if filename.endswith('.py'):
-      try:
-          bot.load_extension(f'cogs.{filename[:-3]}')
-          print(f'✅   已加載 {filename}')
-      except Exception as error:
-          print(f'❎   {filename} 發生錯誤  {error}')
 
 @bot.event
 async def on_ready():
-  channel = bot.get_channel(int(jdata["後台"]))
-  await channel.send(f"✅機器人開始運行✅")
+    print("-------->>機器人已上線<<--------")
+    #await bot.load_extension("cmds.main")
+    #await bot.load_extension("cmds.react")
+    #await bot.load_extension("cmds.event")
+    #await bot.load_extension("cmds.task")
+    #await bot.load_extension("cmds.member")
+    for filename in os.listdir('./cmds'):
+        if filename.endswith('.py'):
+            try:
+                await bot.load_extension(f'cmds.{filename[:-3]}')
+                print(f'✅   已加載 {filename}')
+            except Exception as error:
+                print(f'❎   {filename} 發生錯誤  {error}')
+    channel = bot.get_channel(int(jdata["後台"]))
+    await channel.send(f"✅機器人開始運行✅")
 
 
 
