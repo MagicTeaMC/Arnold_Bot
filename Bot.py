@@ -46,6 +46,7 @@ async def on_ready():
                 print(f'❎   {filename} 發生錯誤  {error}')
     channel = bot.get_channel(int(jdata["後台"]))
     await channel.send(f"✅機器人開始運行✅")
+    
 
 
 

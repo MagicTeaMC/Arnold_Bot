@@ -3,19 +3,22 @@ from discord.ext import commands
 from core.classes import Cog_Extension
 import json
 import random
+import asyncio
 
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
+
+
 
 class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self,member):
         #成員加入
-        if int(member.guild.id)==int(1064894808419737640)():
+        if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
             await channel.send(f'{member} 加入 {member.guild} 伺服器!')
-        elif int(member.guild.id)==int(1078082303256969317)():
+        elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
             await channel.send(f'{member} 加入 {member.guild} 伺服器!')
@@ -27,11 +30,11 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
-        if int(member.guild.id)==int(1064894808419737640)():
+        if int(member.guild.id)==int(1064894808419737640):
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
             await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
-        elif int(member.guild.id)==int(1078082303256969317)():
+        elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
             await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
@@ -43,11 +46,11 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_ban(self,guild,member):
         #成員離開 
-        if int(member.guild.id)==int(1064894808419737640)():
+        if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
             await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
-        elif int(member.guild.id)==int(1078082303256969317)():
+        elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
             await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
@@ -59,11 +62,11 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_unban(self,guild,member):
         #成員離開
-        if int(member.guild.id)==int(1064894808419737640)():
+        if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
             await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
-        elif int(member.guild.id)==int(1078082303256969317)():
+        elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
             await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
@@ -131,50 +134,27 @@ class Event(Cog_Extension):
             await ctx.send("發生錯誤，請向製作者回報")
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 發生錯誤! 運行指令：{ctx.message.content}')
-
+        
     @commands.Cog.listener()
     async def on_message(self,msg):
         #on_message必須寫在一個def裡
-        
+        guildlist = []
         if msg.channel.id == int(1078082303294705714)and msg.author != self.bot.user:
-            IsEnterMcId = 0
-            IsEnterDcId = 0
-            IsEnterOtherGuild = 0
-            JoinOtherGuild = ""
-            McId = ""
-            DcId = ""
-            if msg.content == ("加入公會") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
-                await msg.channel.send("請輸入在Minecraft的ID" )
-                IsEnterMcId = 1
-            if IsEnterMcId == 1 and msg.author != self.bot.user:
-                McId = msg.content
-                IsEnterMcId = 0
-                IsEnterDcId = 1
-                await msg.channel.send("請輸入Discord名稱，須包含 #後4位數")
-            if IsEnterDcId == 1 and msg.author != self.bot.user:
-                DcId = msg.content
-                IsEnterDcId = 0
-                IsEnterOtherGuild = 1
-                await msg.channel.send("請輸入加入的其他公會，若無加入請輸入「0」")
-            if IsEnterOtherGuild == 1 and msg.author != self.bot.user:
-                JoinOtherGuild = msg.content
-                IsEnterOtherGuild = 0
-                await msg.channel.send("您成功加入公會")
-                
+            if msg.content == ("加入公會"):
+                await msg.channel.send("如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(不是tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，3.14159265358#6111，鷹之國、蘋果村")
+            else:
+                guildlist = msg.content.split("，")
                 channel = self.bot.get_channel(int(jdata["加入公會"]))
                 embed=discord.Embed(title="加入公會", color=0x2febf9)
-                embed.add_field(name="Minecraft ID", value=McId, inline=True)
-                embed.add_field(name="Discord ID", value=DcId, inline=True)
-                embed.add_field(name="加入的其他公會", value=JoinOtherGuild, inline=False)
+                embed.add_field(name="Minecraft ID", value=guildlist[0], inline=True)
+                embed.add_field(name="Discord ID", value=guildlist[1], inline=True)
+                embed.add_field(name="加入的其他公會", value=guildlist[2], inline=False)
+                embed.add_field(name="填寫者", value=msg.author, inline=False)
                 await channel.send(embed=embed)
-                IsEnterMcId = 0
-                IsEnterDcId = 0
-                IsEnterOtherGuild = 0
-                JoinOtherGuild = ""
-                McId = ""
-                DcId = ""
-            
-
+                guild = self.bot.get_guild(msg.guild.id)
+                role = guild.get_role(1078082303256969325)
+                await msg.author.add_roles(role,reason="填寫資料加入公會")
+                await msg.author.send(f"你加入了鷹之國公會")
         else:
             if msg.content == ("apple") : #關鍵字
                 #特定關鍵字回覆
@@ -291,7 +271,7 @@ class Event(Cog_Extension):
                 await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}，然後simon104002是真的死了")
                 pic = discord.File(jdata['simon'])
                 await msg.channel.send(file=pic)
-                await msg.send("好可惜，他死了")
+                await msg.channel.send("好可惜，他死了")
 
 
 '''
