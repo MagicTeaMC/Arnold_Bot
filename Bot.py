@@ -5,8 +5,6 @@ import random
 import os
 
 
-#from help_cog import help_cog
-#from music_cog import music_cog
 
 
 os.chdir("C:\\Users\\user\\OneDrive\\文件\\GitHub\\Arnold_Bot")
@@ -22,21 +20,13 @@ intents.members = True
 bot = commands.Bot(command_prefix='$',intents=intents)
     #機器人符號(指令前的符號)
 
-#bot.remove_command('help')
 
-#bot.add_cog(help_cog(bot))
-#bot.add_cog(music_cog(bot))
 
 
 
 @bot.event
 async def on_ready():
     print("-------->>機器人已上線<<--------")
-    #await bot.load_extension("cmds.main")
-    #await bot.load_extension("cmds.react")
-    #await bot.load_extension("cmds.event")
-    #await bot.load_extension("cmds.task")
-    #await bot.load_extension("cmds.member")
     for filename in os.listdir('./cmds'):
         if filename.endswith('.py'):
             try:

@@ -18,7 +18,3 @@ https://github.com/ChenArnold/Arnold_Bot
 1064894808419737640 水
 1078082303256969317 鷹
 
-MCID:
-DC:
-名子:
-有無加入其他公會/村

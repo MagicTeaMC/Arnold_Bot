@@ -12,36 +12,6 @@ with open("Setting.json","r",encoding='utf8') as jFile:
 
 class Main(Cog_Extension):
 
-    '''
-    @commands.command()
-    async def test(self,ctx):
-        modal = discord.ui.Modal()#你的參數
-        modal.add_item(InputText({
-            "title": "My Cool Modal",
-            "custom_id": "cool_modal",
-            "components": [{
-                "type": 1,
-                "components": [{
-                "type": 4,
-                "custom_id": "name",
-                "label": "Name",
-                "style": 1,
-                "min_length": 1,
-                "max_length": 4000,
-                "placeholder": "John",
-                "required": true
-                }]
-            }]
-        }))#輸入框的參數
-        
-        async def m1(interaction):
-            await interaction.response.send_message()#你要回復的東西
-        
-        modal.callback = m1 #當modal按提交後的動作,上面已定義。
-        
-        await ctx.send_modal(modal) #發送modal
-    '''
-        
     @commands.command()
     async def ping(self,ctx): 
         #ctx (上下文，回覆的上下關係) 

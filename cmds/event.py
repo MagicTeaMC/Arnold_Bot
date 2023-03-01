@@ -144,6 +144,8 @@ class Event(Cog_Extension):
                 await msg.channel.send("如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(不是tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，3.14159265358#6111，鷹之國、蘋果村")
             else:
                 guildlist = msg.content.split("，")
+                guild = self.bot.get_guild(msg.guild.id)
+                role = guild.get_role(1078082303256969325)
                 channel = self.bot.get_channel(int(jdata["加入公會"]))
                 embed=discord.Embed(title="加入公會", color=0x2febf9)
                 embed.add_field(name="Minecraft ID", value=guildlist[0], inline=True)
@@ -151,8 +153,6 @@ class Event(Cog_Extension):
                 embed.add_field(name="加入的其他公會", value=guildlist[2], inline=False)
                 embed.add_field(name="填寫者", value=msg.author, inline=False)
                 await channel.send(embed=embed)
-                guild = self.bot.get_guild(msg.guild.id)
-                role = guild.get_role(1078082303256969325)
                 await msg.author.add_roles(role,reason="填寫資料加入公會")
                 await msg.author.send(f"你加入了鷹之國公會")
         else:
