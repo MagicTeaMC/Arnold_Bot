@@ -29,7 +29,7 @@ class React(Cog_Extension):
     @commands.command()
     async def 原神圖片(self, ctx):
             #多種圖片隨機傳送
-        random_pic = random.choice(jdata['原神隨機圖'])
+        random_pic = random.choice(jdata['g隨機圖'])
         rpic = discord.File(random_pic)
         await ctx.send(file=rpic)
         channel = self.bot.get_channel(int(jdata["後台"]))
