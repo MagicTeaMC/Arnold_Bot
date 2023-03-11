@@ -144,8 +144,8 @@ class Event(Cog_Extension):
             else:
                 try:
                     guildlist = msg.content.split("，")
-                    embed=discord.Embed(title="加入公會", color=0x2febf9)
-                    timestamp=datetime.datetime.now()
+                    embed=discord.Embed(title="加入公會", color=0x2febf9,
+                    timestamp=datetime.datetime.now())
                     embed.add_field(name="Minecraft ID", value=guildlist[0], inline=True)
                     embed.add_field(name="Discord ID", value=guildlist[1], inline=True)
                     embed.add_field(name="加入的其他公會", value=guildlist[2], inline=False)
@@ -269,7 +269,7 @@ class Event(Cog_Extension):
                 pic = discord.File(jdata['好問題'])
                 await msg.channel.send(file=pic)
 
-            if msg.content == ("XD"or"xd") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
+            if msg.content == ("XD") or msg.content ==("xd") and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
                 print ("XD")
                 channel = self.bot.get_channel(int(jdata["後台"]))
                 await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")

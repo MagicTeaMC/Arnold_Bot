@@ -101,6 +101,18 @@ class Main(Cog_Extension):
         for x in random.sample(online,k=5):
             await ctx.send(x)
 
+    @commands.command()
+    async def server(self,ctx):
+        embed=discord.Embed(title="伺服器資訊", color=0x47f0b8,
+        timestamp=datetime.datetime.now())
+        embed.add_field(name="名稱", value=ctx.guild.name, inline=True)
+        embed.add_field(name="擁有者", value=ctx.guild.owner, inline=True)
+        embed.add_field(name="創建時間", value=ctx.guild.created_at, inline=True)
+        embed.add_field(name="描述", value=ctx.guild.description, inline=True)
+        embed.add_field(name="成員數", value=ctx.guild.member_count, inline=True)
+        embed.add_field(name="規則頻道", value=ctx.guild.rules_channel, inline=True)
+        await ctx.send(embed=embed)
+
 #group群組
 #subcommand 子命令
     @commands.group()
