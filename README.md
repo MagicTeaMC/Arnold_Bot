@@ -18,3 +18,10 @@ https://github.com/ChenArnold/Arnold_Bot
 1064894808419737640 水
 1078082303256969317 鷹
 
+async with channel.typing():
+    await asyncio.sleep(20)
+
+await channel.send('Done!')
+
+@commands.command(help="用 $help command 顯示", brief="$help顯示")
+

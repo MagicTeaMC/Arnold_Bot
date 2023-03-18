@@ -18,27 +18,27 @@ class Event(Cog_Extension):
         if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
         else:
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{member} 加入 {member.guild} 伺服器!')
-
+            
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
         if int(member.guild.id)==int(1064894808419737640):
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
         else:
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
@@ -50,11 +50,11 @@ class Event(Cog_Extension):
         if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
         else:
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
@@ -66,11 +66,11 @@ class Event(Cog_Extension):
         if int(member.guild.id)==int(1064894808419737640):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+            await channel.send(f'在 {guild} 伺服器 {member.mention} 終於被解BAN了!')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+            await channel.send(f'在 {guild} 伺服器 {member.mention} 終於被解BAN了!')
         else:
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["後台"]))
@@ -140,7 +140,8 @@ class Event(Cog_Extension):
         guildlist = []
         if msg.channel.id == int(1078082303294705714)and msg.author != self.bot.user:
             if msg.content == ("加入公會"):
-                await msg.channel.send("如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(不是tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，3.14159265358#6111，鷹之國、蘋果村\n備註：填錯格式沒加入不要來找我(沒用逗點分隔)")
+                my_id = "876035367348867102"
+                await msg.channel.send(f"如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(請用tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，<@{my_id}>，鷹之國、蘋果村\n備註：填錯格式沒加入不要來找我(沒用逗點分隔)")
             else:
                 try:
                     guildlist = msg.content.split("，")

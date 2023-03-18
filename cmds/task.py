@@ -18,7 +18,7 @@ class Task(Cog_Extension):
       await self.bot.wait_until_ready()
       self.channel = self.bot.get_channel(1065030744315002940)
       while not self.bot.is_closed():
-        now_time = datetime.datetime.now().strftime('%H%M') #%H%M 時+分
+        now_time = datetime.datetime.now().strftime('%H%M%S') #%H%M 時+分
         with open("Setting.json","r",encoding='utf8') as jFile:
           jdata = json.load(jFile)
         if now_time == jdata['time'] and self.counter == 0: 
