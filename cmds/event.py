@@ -80,29 +80,71 @@ class Event(Cog_Extension):
     async def on_raw_reaction_add(self,data):
         #1.新增反應 --> data
         print(data.member,data.emoji)
-        if str(data.emoji) == '💀' and str(data.message_id) == str(1065035240298528909) and str(data.guild_id) == str(1064894808419737640): #2.確認圖案
+        if str(data.emoji) == '💀' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
             print('輸入💀')
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f"{data.member} 輸入 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
-            role = guild.get_role(1074134841676800030)
+            role = guild.get_role(1078082303256969318)
             #3.給予身分
             await data.member.add_roles(role,reason="新增反映後台身分")
+            await data.member.send(f"你取得了 {role} 這個身分組!")
+
+        if str(data.emoji) == '🔹' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            print('輸入🔹')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f"{data.member} 輸入 {data.emoji}")
+            guild = self.bot.get_guild(data.guild_id)
+            role = guild.get_role(1078082303256969320)
+            #3.給予身分
+            await data.member.add_roles(role,reason="新增反映原神身分")
+            await data.member.send(f"你取得了 {role} 這個身分組!")
+
+        if str(data.emoji) == '🈲' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            print('輸入 🈲')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f"{data.member} 輸入 {data.emoji}")
+            guild = self.bot.get_guild(data.guild_id)
+            role = guild.get_role(1078082303256969319)
+            #3.給予身分
+            await data.member.add_roles(role,reason="新增反映18+身分")
             await data.member.send(f"你取得了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self,data):
         #1.新增反應 --> data
         print(data.member,data.emoji)
-        if str(data.emoji) == '💀' and str(data.message_id) == str(1065035240298528909) and str(data.guild_id) == str(1064894808419737640): #2.確認圖案
+        if str(data.emoji) == '💀' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
             print('移除💀')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{data.member} 移除 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
             user = guild.get_member(data.user_id)
-            role = guild.get_role(1074134841676800030)
+            role = guild.get_role(1078082303256969318)
             #3.給予身分
+            await channel.send(f"{user} 移除 {data.emoji}")
             await user.remove_roles(role,reason="移除反映後台身分")
+            await user.send(f"你移除了 {role} 這個身分組!")
+
+        if str(data.emoji) == '🔹' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            print('移除🔹')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            guild = self.bot.get_guild(data.guild_id)
+            user = guild.get_member(data.user_id)
+            role = guild.get_role(1078082303256969320)
+            #3.給予身分
+            await channel.send(f"{user} 移除 {data.emoji}")
+            await user.remove_roles(role,reason="移除反映原神身分")
+            await user.send(f"你移除了 {role} 這個身分組!")
+
+        if str(data.emoji) == '🈲' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            print('移除🈲')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            guild = self.bot.get_guild(data.guild_id)
+            user = guild.get_member(data.user_id)
+            role = guild.get_role(1078082303256969319)
+            #3.給予身分
+            await channel.send(f"{user} 移除 {data.emoji}")
+            await user.remove_roles(role,reason="移除反映18+身分")
             await user.send(f"你移除了 {role} 這個身分組!")
 
     @commands.Cog.listener()

@@ -124,6 +124,39 @@ class Main(Cog_Extension):
         await ctx.send(embed=embed)
 
     @commands.command()
+    async def userinfo(self,ctx,member:discord.Member):
+        create_time = member.created_at
+        join_time = member.joined_at
+        embed=discord.Embed(title="ℹ️使用者資訊",description=member.mention,color=0x00ffee)
+        embed.add_field(name="🐬名稱", value=member, inline=True)
+        embed.add_field(name="🆔ID", value=member.id, inline=True)
+        if str(member.display_name) == str(member.name):
+            embed.add_field(name="🖌️暱稱", value="未修改", inline=True)
+        else:
+            embed.add_field(name="暱稱", value=member.display_name, inline=True)
+        if str(member.status) == "online":
+            embed.add_field(name="💡上線狀態", value="🟢線上", inline=True)
+        elif str(member.status) == "dnd":
+            embed.add_field(name="💡上線狀態", value="⛔勿擾", inline=True)
+        elif str(member.status) == "idle":
+            embed.add_field(name="💡上線狀態", value="🌛閒置", inline=True)
+        else:
+            embed.add_field(name="💡上線狀態", value="⚫隱形或離線", inline=True)
+        embed.add_field(name="✡️帳號創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
+        embed.add_field(name="➡️加入時間", value=join_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
+        if member.timed_out_until == None:
+            embed.add_field(name="🈲禁言時間", value=member.timed_out_until, inline=False)
+        else:
+            timeout_time = member.timed_out_until
+            embed.add_field(name="🈲禁言時間", value=timeout_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=False)
+        roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
+        embed.add_field(name="👥身分", value=f"{roles}", inline=False)
+        if member.bot:
+            embed.add_field(name="🤖機器人", value="✅是", inline=False)
+        else:
+            embed.add_field(name="🤖機器人", value="❌否", inline=False)
+        embed.set_footer(text=f"查詢者{ctx.author.mention}")
+        await ctx.send(embed=embed)
 
 
 
