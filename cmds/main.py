@@ -161,8 +161,11 @@ class Main(Cog_Extension):
     @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
     async def roles(self,ctx):
         embed=discord.Embed(title="身分組一覽", color=0xc13de6)
-        roles = "\n".join([role.mention for role in ctx.guild.roles])
-        embed.add_field(name="身分", value=roles, inline=False)
+        roles = ",".join([role.mention for role in ctx.guild.roles])
+        roles_list = roles.split(",")
+        roles_list.reverse()
+        roles_list_reverse = "\n".join(roles_list)
+        embed.add_field(name="身分", value=roles_list_reverse, inline=False)
         await ctx.send(embed=embed)
     
 
