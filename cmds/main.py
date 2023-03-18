@@ -123,7 +123,7 @@ class Main(Cog_Extension):
             await asyncio.sleep(2)
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.command(help="顯示個人資訊，用法：$userinfo @someone", brief="顯示特定使用者資訊資訊")
     async def userinfo(self,ctx,member:discord.Member):
         create_time = member.created_at
         join_time = member.joined_at
@@ -145,7 +145,7 @@ class Main(Cog_Extension):
         embed.add_field(name="✡️帳號創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         embed.add_field(name="➡️加入時間", value=join_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         if member.timed_out_until == None:
-            embed.add_field(name="🈲禁言時間", value=member.timed_out_until, inline=False)
+            embed.add_field(name="🈲禁言時間", value="❌無禁言狀態", inline=False)
         else:
             timeout_time = member.timed_out_until
             embed.add_field(name="🈲禁言時間", value=timeout_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=False)
@@ -157,6 +157,14 @@ class Main(Cog_Extension):
             embed.add_field(name="🤖機器人", value="❌否", inline=False)
         embed.set_footer(text=f"查詢者{ctx.author.mention}")
         await ctx.send(embed=embed)
+
+    @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
+    async def roles(self,ctx):
+        embed=discord.Embed(title="身分組一覽", color=0xc13de6)
+        roles = "\n".join([role.mention for role in ctx.guild.roles])
+        embed.add_field(name="身分", value=roles, inline=False)
+        await ctx.send(embed=embed)
+    
 
 
 
