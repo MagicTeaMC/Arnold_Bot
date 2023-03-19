@@ -177,7 +177,7 @@ class Event(Cog_Extension):
                         await self.channel.send(embed=embed)
                 counter += 1
     
-
+    #'''
     @commands.Cog.listener()
     async def on_command_error(self,ctx,error):
         if isinstance(error,commands.errors.MissingRequiredAttachment):
@@ -192,6 +192,7 @@ class Event(Cog_Extension):
             await ctx.send("發生錯誤，請向製作者回報")
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 發生錯誤! 運行指令：{ctx.message.content}')
+    #'''
 
     @commands.Cog.listener()
     async def on_message(self,msg):
@@ -200,7 +201,17 @@ class Event(Cog_Extension):
         if msg.channel.id == int(1078082303294705714)and msg.author != self.bot.user:
             if msg.content == ("加入公會"):
                 my_id = "876035367348867102"
-                await msg.channel.send(f"如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(請用tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，<@{my_id}>，鷹之國、蘋果村\n備註：填錯格式沒加入不要來找我(沒用逗點分隔)")
+                await msg.channel.send(f"如果您要加入公會，請輸入\n1.Minecraft的ID：\n2.Discord名稱，須包含 #後4位數(請用tag)：\n3.有加入的其他公會：\n並用「，」分隔\n例如：ChenArnold，<@{my_id}>，鷹之國、蘋果村\n備註：填錯格式沒加入不要來找我(沒用逗點分隔)\n\n只是想聊天請打「我只是來聊天」")
+            elif msg.content == ("我只是來聊天"):
+                guild = self.bot.get_guild(msg.guild.id)
+                role = guild.get_role(1086798962180235296)
+                await msg.author.add_roles(role,reason="填寫資料加入聊天")
+                await msg.add_reaction("✅")
+                await msg.author.send(f"你加入了鷹之國公會(聊天)")
+                await msg.channel.send("輸入成功，已給予身分")
+                channel = self.bot.get_channel(int(jdata["後台"]))
+                await channel.send(str(msg.author.mention)+"加入鷹之國(聊天)")
+                print(str(msg.author)+"加入鷹之國(聊天)")
             else:
                 try:
                     guildlist = msg.content.split("，")

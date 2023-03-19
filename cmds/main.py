@@ -145,18 +145,19 @@ class Main(Cog_Extension):
         embed.add_field(name="✡️帳號創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         embed.add_field(name="➡️加入時間", value=join_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         if member.timed_out_until == None:
-            embed.add_field(name="🈲禁言時間", value="❌無禁言狀態", inline=False)
+            embed.add_field(name="🈲禁言時間", value="❌無禁言狀態", inline=True)
         else:
             timeout_time = member.timed_out_until
-            embed.add_field(name="🈲禁言時間", value=timeout_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=False)
-        roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
-        embed.add_field(name="👥身分", value=f"{roles}", inline=False)
+            embed.add_field(name="🈲禁言時間", value=timeout_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         if member.bot:
-            embed.add_field(name="🤖機器人", value="✅是", inline=False)
+            embed.add_field(name="🤖機器人", value="✅是", inline=True)
         else:
-            embed.add_field(name="🤖機器人", value="❌否", inline=False)
+            embed.add_field(name="🤖機器人", value="❌否", inline=True)
         embed.set_footer(text=f"查詢者{ctx.author.mention}")
         await ctx.send(embed=embed)
+        roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
+        embed.add_field(name="👥身分", value=f"{roles}", inline=False)
+
 
     @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
     async def roles(self,ctx):
@@ -167,7 +168,42 @@ class Main(Cog_Extension):
         roles_list_reverse = "\n".join(roles_list)
         embed.add_field(name="身分", value=roles_list_reverse, inline=False)
         await ctx.send(embed=embed)
-    
+
+    @commands.command(help="顯示身分組資訊，用法： $role [身分組ID]", brief="顯示身分組資訊")
+    async def role(self,ctx,ID:int):
+        guild = self.bot.get_guild(ctx.guild.id)
+        role = guild.get_role(ID)
+        create_time = role.created_at
+        embed=discord.Embed(title="身分組資訊", description=role.mention, color=0xc13de6)
+        embed.add_field(name="創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
+        embed.add_field(name="ID", value=role.id, inline=True)
+        embed.add_field(name="成員數", value=len(role.members), inline=True)
+        if role.permissions.administrator:
+            embed.add_field(name="管理權", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理權", value="❌否", inline=True)
+        if role.permissions.mention_everyone:
+            embed.add_field(name="Tag_everyone", value="✅是", inline=True)
+        else:
+            embed.add_field(name="Tag_everyone", value="❌否", inline=True)
+        if role.permissions.ban_members:
+            embed.add_field(name="Ban", value="✅是", inline=True)
+        else:
+            embed.add_field(name="Ban", value="❌否", inline=True)
+        if role.permissions.kick_members:
+            embed.add_field(name="Kick", value="✅是", inline=True)
+        else:
+            embed.add_field(name="Kick", value="❌否", inline=True)
+        await ctx.send(embed=embed)
+
+    @commands.command(help="顯示身分組成員，用法： $rolemember [身分組ID]", brief="顯示身分組成員")
+    async def rolemember(self,ctx,ID:int):
+        guild = self.bot.get_guild(ctx.guild.id)
+        role = guild.get_role(ID)
+        roles = ",".join([role.members.mention for role in role])
+        embed=discord.Embed(title="身分組成員", description="role.mention", color=0x3d9de6)
+        embed.add_field(name="成員名單", value=roles, inline=True)
+        await ctx.send(embed=embed)
 
 
 

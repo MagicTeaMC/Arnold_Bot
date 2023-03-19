@@ -58,7 +58,7 @@ async def on_ready():
 
 
 
-@bot.command()
+@bot.command(help="載入某文件", brief="載入某文件")
 async def load(ctx,extension):
     await bot.load_extension(f'cmds.{extension}')
     await ctx.send(f'已載入{extension}!')
@@ -66,7 +66,7 @@ async def load(ctx,extension):
     channel = bot.get_channel(int(jdata["後台"]))
     await channel.send(f"{ctx.author} 載入 {extension}")
 
-@bot.command()
+@bot.command(help="卸載某文件", brief="卸載某文件")
 async def unload(ctx,extension):
     await bot.unload_extension(f'cmds.{extension}')
     await ctx.send(f'已卸載{extension}!')
@@ -74,7 +74,7 @@ async def unload(ctx,extension):
     channel = bot.get_channel(int(jdata["後台"]))
     await channel.send(f"{ctx.author} 卸載 {extension}")
 
-@bot.command()
+@bot.command(help="重載某文件", brief="重載某文件")
 async def reload(ctx,extension):
     await bot.reload_extension(f'cmds.{extension}')
     await ctx.send(f'已重新載入{extension}!')

@@ -9,7 +9,7 @@ with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
 class React(Cog_Extension):
-    @commands.command()
+    @commands.command(help="顯示國際通用手勢", brief="顯示國際通用手勢")
     async def 單一圖片(self, ctx):
             #如指令所示
         pic = discord.File(jdata['pic'])
@@ -17,7 +17,7 @@ class React(Cog_Extension):
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚單一圖片!')
 
-    @commands.command()
+    @commands.command(help="隨機顯示圖片", brief="隨機顯示圖片")
     async def 圖片(self, ctx):
             #多種圖片隨機傳送
         random_pic = random.choice(jdata['randompic'])
@@ -26,7 +26,7 @@ class React(Cog_Extension):
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚隨機圖片!')
 
-    @commands.command()
+    @commands.command(help="隨機顯示原神圖片", brief="隨機顯示原神圖片")
     async def 原神圖片(self, ctx):
             #多種圖片隨機傳送
         random_pic = random.choice(jdata['g隨機圖'])
@@ -35,7 +35,7 @@ class React(Cog_Extension):
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚隨機原神圖片!')
 
-    @commands.command()
+    @commands.command(help="隨機顯示圖片(webside)", brief="隨機顯示圖片(webside)")
     async def web(self, ctx):
             #網路圖片->去setting設定
         random_pic = random.choice(jdata['url_pic'])

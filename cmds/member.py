@@ -9,8 +9,11 @@ with open("Setting.json","r",encoding='utf8') as jFile:
 class Member(Cog_Extension):
         @commands.command()
         async def kick(self,user1:discord.User,reason1:str):
-            self.channel = self.bot.get_channel(1065029468084785182)
-            await self.channel.kick(user=user1,  reason=reason1)
+            await user1.kick(user=user1,  reason=reason1)
+
+        @commands.command()
+        async def timeout(self,user1:discord.User,until,reason1:str):
+            await user1.timeout(user=user1,until=until,reason=reason1)
 
 
 
