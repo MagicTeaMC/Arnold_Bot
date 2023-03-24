@@ -30,7 +30,7 @@ class Event(Cog_Extension):
         else:
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
             
     @commands.Cog.listener()
     async def on_member_remove(self,member):
@@ -50,7 +50,7 @@ class Event(Cog_Extension):
         else:
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_ban(self,guild,member):
@@ -70,7 +70,7 @@ class Event(Cog_Extension):
         else:
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
 
     @commands.Cog.listener()
     async def on_member_unban(self,guild,member):
@@ -90,7 +90,7 @@ class Event(Cog_Extension):
         else:
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'在 {guild} 伺服器 {member} 終於被解BAN了!')
+            await channel.send(f'在 {guild.mention} 伺服器 {member} 終於被解BAN了!')
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self,data):
@@ -99,7 +99,7 @@ class Event(Cog_Extension):
         if str(data.emoji) == '💀' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
             print('輸入💀')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{data.member} 輸入 {data.emoji}")
+            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
             role = guild.get_role(1078082303256969318)
             #3.給予身分
@@ -109,7 +109,7 @@ class Event(Cog_Extension):
         if str(data.emoji) == '🔹' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
             print('輸入🔹')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{data.member} 輸入 {data.emoji}")
+            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
             role = guild.get_role(1078082303256969320)
             #3.給予身分
@@ -119,7 +119,7 @@ class Event(Cog_Extension):
         if str(data.emoji) == '🈲' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
             print('輸入 🈲')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f"{data.member} 輸入 {data.emoji}")
+            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
             guild = self.bot.get_guild(data.guild_id)
             role = guild.get_role(1078082303256969319)
             #3.給予身分
@@ -137,7 +137,7 @@ class Event(Cog_Extension):
             user = guild.get_member(data.user_id)
             role = guild.get_role(1078082303256969318)
             #3.給予身分
-            await channel.send(f"{user} 移除 {data.emoji}")
+            await channel.send(f"{user.mention} 移除 {data.emoji}")
             await user.remove_roles(role,reason="移除反映後台身分")
             await user.send(f"你移除了 {role} 這個身分組!")
 
@@ -148,7 +148,7 @@ class Event(Cog_Extension):
             user = guild.get_member(data.user_id)
             role = guild.get_role(1078082303256969320)
             #3.給予身分
-            await channel.send(f"{user} 移除 {data.emoji}")
+            await channel.send(f"{user.mention} 移除 {data.emoji}")
             await user.remove_roles(role,reason="移除反映原神身分")
             await user.send(f"你移除了 {role} 這個身分組!")
 
@@ -159,7 +159,7 @@ class Event(Cog_Extension):
             user = guild.get_member(data.user_id)
             role = guild.get_role(1078082303256969319)
             #3.給予身分
-            await channel.send(f"{user} 移除 {data.emoji}")
+            await channel.send(f"{user.mention} 移除 {data.emoji}")
             await user.remove_roles(role,reason="移除反映18+身分")
             await user.send(f"你移除了 {role} 這個身分組!")
 
@@ -183,15 +183,15 @@ class Event(Cog_Extension):
         if isinstance(error,commands.errors.MissingRequiredAttachment):
             await ctx.send("遺失參數")
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 發生"遺失參數"的錯誤! 運行指令：{ctx.message.content}')
+            await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生"遺失參數"的錯誤! 運行指令：{ctx.message.content}')
         elif isinstance(error,commands.errors.CommandNotFound):
             await ctx.send("指令不存在")
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 發生"指令不存在"的錯誤! 運行指令：{ctx.message.content}')
+            await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生"指令不存在"的錯誤! 運行指令：{ctx.message.content}')
         else:
             await ctx.send("發生錯誤，請向製作者回報")
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 發生錯誤! 運行指令：{ctx.message.content}')
+            await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生錯誤! 運行指令：{ctx.message.content}')
     #'''
 
     @commands.Cog.listener()
@@ -235,64 +235,64 @@ class Event(Cog_Extension):
                     await msg.author.send(f"你加入了鷹之國公會")
                     await msg.channel.send("輸入成功，已給予身分")
                     channel = self.bot.get_channel(int(jdata["後台"]))
-                    await channel.send(str(msg.author)+"加入鷹之國")
+                    await channel.send(str(msg.author.mention)+"加入鷹之國")
                     print(str(msg.author)+"加入鷹之國")
         else:
             if msg.content == ("apple") : #關鍵字
                 #特定關鍵字回覆
                 print ("有人輸入apple")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("水果伺服器歡迎你") #回覆字元
             
             if msg.content == ("早安"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("早安")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("早上好啊" )
 
             if msg.content == ("午安"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("午安")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("吃午餐了嗎?" )
 
             if msg.content == ("晚安"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("晚安")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("晚安，去睡覺了" )
 
             if msg.content == ("凌晨安"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("凌晨安")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("閉嘴，你凌晨起來幹嘛 ||打炮?||" )
 
             if msg.content == ("你好"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("你好")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 await msg.channel.send("你好啊" )
 
             if msg.content == ("確實"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("確實")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['確實'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("不知道"): #and msg.author != self.bot.user: #前者->關鍵字、後者->要是非機器人傳送的
                 print ("不知道")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['不知道'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("你犯法"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("犯法")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['犯法'])
                 await msg.channel.send(file=pic)
                 await msg.channel.send("不知道")
@@ -300,14 +300,14 @@ class Event(Cog_Extension):
             if msg.content == ("我沒錢"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("我沒錢")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['沒錢'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("氣死"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("氣死")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['氣死'])
                 await msg.channel.send("起司??")
                 await msg.channel.send(file=pic)
@@ -315,42 +315,42 @@ class Event(Cog_Extension):
             if msg.content == ("你有強迫症"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("強迫症")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['強迫症'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("TNT拿來"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("TNT")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['TNT'])
                 await msg.channel.send(file=pic)
             
             if msg.content == ("NoTag"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("NoTag")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['NoTag'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("好問題"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("好問題")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['好問題'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("XD") or msg.content ==("xd"): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("XD")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['XD'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("R.I.P."): #前者->關鍵字、後者->要是非機器人傳送的
                 print ("R.I.P.")
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['simon'])
                 await msg.channel.send(file=pic)
                 await msg.channel.send("好可惜，他死了")
@@ -358,58 +358,60 @@ class Event(Cog_Extension):
             if msg.content == ("gay"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['gay-1'])
                 await msg.channel.send(file=pic)
                 pic1 = discord.File(jdata['gay-2'])
                 await msg.channel.send(file=pic1)
+                pic2 = discord.File(jdata['gay-3'])
+                await msg.channel.send(file=pic2)
             
             if msg.content == ("我來負責"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['負責'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("你在偷看"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['偷看'])
                 await msg.channel.send(file=pic)
             
             if msg.content == ("可以色色"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['可以色色'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("ㄍㄢˋ"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['幹'])
                 await msg.channel.send(file=pic)
             
             if msg.content == ("打"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['打木頭'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("我愛貓月"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['愛貓月'])
                 await msg.channel.send(file=pic)
 
             if msg.content == ("孤兒"): #前者->關鍵字、後者->要是非機器人傳送的
                 print (msg.content)
                 channel = self.bot.get_channel(int(jdata["後台"]))
-                await channel.send(f"{msg.author} 在 {msg.guild} 的 {msg.channel} 輸入 {msg.content}")
+                await channel.send(f"{msg.author.mention} 在 {msg.guild} 的 {msg.channel.mention} 輸入 {msg.content}")
                 pic = discord.File(jdata['孤兒院'])
                 await msg.channel.send(file=pic)
 

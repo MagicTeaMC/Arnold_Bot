@@ -19,6 +19,8 @@ class Main(Cog_Extension):
         #A：嗨(上文)(使用者，ID，伺服器，頻道)
         #B：安安(下文)
         await ctx.send(f'{round(self.bot.latency*1000)}(ms)') #預設單位為秒
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢ping")
 
     @commands.command(help="顯示功能說明(基本沒用)", brief="顯示功能(不完整)")
     async def 功能(self,ctx):
@@ -39,7 +41,7 @@ class Main(Cog_Extension):
         await ctx.send(embed=embed)
         print("有人召喚了功能說明")
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚了功能說明!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚了功能說明!')
 
     @commands.command(help="顯示會回覆的字詞清單", brief="顯示會回覆的字詞清單")
     async def 回覆(self,ctx):
@@ -74,7 +76,7 @@ class Main(Cog_Extension):
         await ctx.send(embed=embed)
         print("有人召喚了回覆說明")
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚了回覆說明!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚了回覆說明!')
 
     @commands.command(help="讓機器人說話，用法 $say [內文]，例如： $say Hi您好我叫Arnold_Bot", brief="讓(逼)機器人說話")
     async def say(self,ctx,*,msg):
@@ -85,7 +87,7 @@ class Main(Cog_Extension):
         await ctx.send(msg)
         print("被逼說：",msg)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 逼我說 {msg} !')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 逼我說 {msg} !')
     
 
     @commands.command(help="批量清除訊息，用法： $clean [數量]，例如： $clean 10", brief="批量刪除訊息")
@@ -93,7 +95,7 @@ class Main(Cog_Extension):
         await ctx.channel.purge(limit=num+1,reason=reason1)
         print("清理了",num,"則訊息,因為",reason1)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 清除了 {num} 則訊息，因為 {reason1} !')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 清除了 {num} 則訊息，因為 {reason1} !')
 
     @commands.command()
     async def random(self,ctx):
@@ -122,6 +124,8 @@ class Main(Cog_Extension):
         async with ctx.typing():
             await asyncio.sleep(2)
         await ctx.send(embed=embed)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢該伺服器資訊")
 
     @commands.command(help="顯示個人資訊，用法：$userinfo @someone", brief="顯示特定使用者資訊資訊")
     async def userinfo(self,ctx,member:discord.Member):
@@ -157,6 +161,8 @@ class Main(Cog_Extension):
         await ctx.send(embed=embed)
         roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
         embed.add_field(name="👥身分", value=f"{roles}", inline=False)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢{member.mention}的資訊")
 
 
     @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
@@ -168,6 +174,8 @@ class Main(Cog_Extension):
         roles_list_reverse = "\n".join(roles_list)
         embed.add_field(name="身分", value=roles_list_reverse, inline=False)
         await ctx.send(embed=embed)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢伺服器身分組資訊")
 
     @commands.command(help="顯示身分組資訊，用法： $role [身分組ID]", brief="顯示身分組資訊")
     async def role(self,ctx,ID:int):
@@ -195,12 +203,14 @@ class Main(Cog_Extension):
         else:
             embed.add_field(name="Kick", value="❌否", inline=True)
         await ctx.send(embed=embed)
+        channel = self.bot.get_channel(int(jdata["後台"]))
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢 {role.mention} 的資訊")
 
     @commands.command(help="顯示身分組成員，用法： $rolemember [身分組ID]", brief="顯示身分組成員")
     async def rolemember(self,ctx,ID:int):
         guild = self.bot.get_guild(ctx.guild.id)
         role = guild.get_role(ID)
-        roles = ",".join([role.members.mention for role in role])
+        roles = ",".join([member.mention for member in role.members])
         embed=discord.Embed(title="身分組成員", description="role.mention", color=0x3d9de6)
         embed.add_field(name="成員名單", value=roles, inline=True)
         await ctx.send(embed=embed)
