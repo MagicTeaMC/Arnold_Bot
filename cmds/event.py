@@ -220,7 +220,7 @@ class Event(Cog_Extension):
                     embed.add_field(name="Minecraft ID", value=guildlist[0], inline=True)
                     embed.add_field(name="Discord ID", value=guildlist[1], inline=True)
                     embed.add_field(name="加入的其他公會", value=guildlist[2], inline=False)
-                    embed.add_field(name="填寫者", value=msg.author, inline=False)
+                    embed.add_field(name="填寫者", value=msg.author.mention, inline=False)
                 except IndexError:
                     await msg.channel.send("填入的逗點過少，請更正並檢查後再傳送")
                 except:
