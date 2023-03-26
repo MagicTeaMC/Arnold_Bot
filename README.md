@@ -15,13 +15,17 @@ setting.json
     "url_pic":["$web圖片，網路圖片網址"]
 
 https://github.com/ChenArnold/Arnold_Bot
-1064894808419737640 水
-1078082303256969317 鷹
 
-async with channel.typing():
-    await asyncio.sleep(20)
 
-await channel.send('Done!')
+此機器人用dicord.py製作
+用於特定伺服器管理，也有回覆梗圖功能
+還設有查詢伺服器及身分組之功能
+使用$server可以查詢該伺服器資訊，使用$roles可查詢該伺服器所有身分組並按權限順序排列
+使用$role [身分組ID] 可查詢該身分組資訊，包括是否傭有重要權限
+使用 $userinfo [@查詢對象] 查詢該成員資訊，包括禁言狀態
+使用 $rolemember [身分組ID] 可查詢該身分組的所有人(建議不要查有很多人的身分組)
+
+用$help了解更多功能，用$help [該指令] 也可
 
 @commands.command(help="用 $help command 顯示", brief="$help顯示")
 

@@ -208,14 +208,13 @@ class Main(Cog_Extension):
 
     @commands.command(help="顯示身分組成員，用法： $rolemember [身分組ID]", brief="顯示身分組成員")
     async def rolemember(self,ctx,ID:int):
-        guild = self.bot.get_guild(ctx.guild.id)
-        role = guild.get_role(ID)
-        roles = ",".join([member.mention for member in role.members])
-        embed=discord.Embed(title="身分組成員", description="role.mention", color=0x3d9de6)
-        embed.add_field(name="成員名單", value=roles, inline=True)
+        role = ctx.guild.get_role(ID)
+        if role is None:
+            return await ctx.send("error")
+        roleuser = ",".join([_.mention for _ in role.members])
+        embed=discord.Embed(title="身分組成員", description=role.mention, color=0x3d9de6)
+        embed.add_field(name="成員", value=roleuser, inline=True)
         await ctx.send(embed=embed)
-
-
 
 
 #group群組
