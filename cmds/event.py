@@ -23,6 +23,11 @@ class Event(Cog_Extension):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
             await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
+            role_ids = [1094181672708214824, 1094031097517580308, 1094030992311853117, 1094031438418022460]
+            for role_id in role_ids:
+                role = discord.utils.get(member.guild.roles, id=role_id)
+                await member.add_roles(role)
+
         elif int(member.guild.id)==int(1061070549566103622):
             print(f'{member} 加入 {member.guild} 伺服器!')
             channel = self.bot.get_channel(int(jdata["Star"]))
@@ -125,6 +130,15 @@ class Event(Cog_Extension):
             #3.給予身分
             await data.member.add_roles(role,reason="新增反映18+身分")
             await data.member.send(f"你取得了 {role} 這個身分組!")
+        if str(data.emoji) == '🇨' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): 
+            print('輸入 🇨')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
+            guild = self.bot.get_guild(data.guild_id)
+            role = guild.get_role(1093223889234051173)
+            #3.給予身分
+            await data.member.add_roles(role,reason="新增反映ChatGPT身分")
+            await data.member.send(f"你取得了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self,data):
@@ -162,6 +176,16 @@ class Event(Cog_Extension):
             await channel.send(f"{user.mention} 移除 {data.emoji}")
             await user.remove_roles(role,reason="移除反映18+身分")
             await user.send(f"你移除了 {role} 這個身分組!")
+        if str(data.emoji) == '🇨' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): 
+            print('🇨')
+            channel = self.bot.get_channel(int(jdata["後台"]))
+            guild = self.bot.get_guild(data.guild_id)
+            user = guild.get_member(data.user_id)
+            role = guild.get_role(1093223889234051173)
+            #3.給予身分
+            await channel.send(f"{user.mention} 移除 {data.emoji}")
+            await user.remove_roles(role,reason="移除反映ChatGPT身分")
+            await user.send(f"你移除了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_message_delete(self,msg):
@@ -181,7 +205,7 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_command_error(self,ctx,error):
         if isinstance(error,commands.errors.MissingRequiredAttachment):
-            await ctx.send("遺失參數")
+            await ctx.send("遺失參數，如右問題請至：https://discord.gg/NdqxvRgGyf 詢問(需領取身分)")
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生"遺失參數"的錯誤! 運行指令：{ctx.message.content}')
         elif isinstance(error,commands.errors.CommandNotFound):
@@ -189,7 +213,7 @@ class Event(Cog_Extension):
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生"指令不存在"的錯誤! 運行指令：{ctx.message.content}')
         else:
-            await ctx.send("發生錯誤，請向製作者回報")
+            await ctx.send("發生錯誤，請向製作者回報(https://discord.gg/NdqxvRgGyf 需領取身分)")
             channel = self.bot.get_channel(int(jdata["後台"]))
             await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 發生錯誤! 運行指令：{ctx.message.content}')
     #'''
@@ -234,6 +258,7 @@ class Event(Cog_Extension):
                     await msg.add_reaction("✅")
                     await msg.author.send(f"你加入了鷹之國公會")
                     await msg.channel.send("輸入成功，已給予身分")
+                    await msg.author.edit(nick=f'[成員]{guildlist[0]}')
                     channel = self.bot.get_channel(int(jdata["後台"]))
                     await channel.send(str(msg.author.mention)+"加入鷹之國")
                     print(str(msg.author)+"加入鷹之國")

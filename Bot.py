@@ -42,20 +42,6 @@ async def on_ready():
     channel = bot.get_channel(int(jdata["後台"]))
     await channel.send(f"✅   機器人開始運行   ✅")
 
-    channel1 = bot.get_channel(1065030744315002940)
-    while not bot.is_closed():
-        now_time = int(datetime.datetime.now().strftime('%H%M')) #%H%M 時+分
-        with open("Setting.json","r",encoding='utf8') as jFile:
-            jdata = json.load(jFile)
-        if now_time == int(jdata['time']) and counter == 0: 
-            await channel1.send("大家早安!\n快來聊天吧!")
-            counter = 1
-            await asyncio.sleep(1)
-        else:
-            await asyncio.sleep(1)
-            counter = 0
-            pass
-
 
 
 @bot.command(help="載入某文件", brief="載入某文件")

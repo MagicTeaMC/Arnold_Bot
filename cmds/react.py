@@ -15,7 +15,7 @@ class React(Cog_Extension):
         pic = discord.File(jdata['pic'])
         await ctx.send(file=pic)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚單一圖片!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚單一圖片!')
 
     @commands.command(help="隨機顯示圖片", brief="隨機顯示圖片")
     async def 圖片(self, ctx):
@@ -24,7 +24,7 @@ class React(Cog_Extension):
         rpic = discord.File(random_pic)
         await ctx.send(file=rpic)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚隨機圖片!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚隨機圖片!')
 
     @commands.command(help="隨機顯示原神圖片", brief="隨機顯示原神圖片")
     async def 原神圖片(self, ctx):
@@ -33,7 +33,7 @@ class React(Cog_Extension):
         rpic = discord.File(random_pic)
         await ctx.send(file=rpic)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚隨機原神圖片!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚隨機原神圖片!')
 
     @commands.command(help="隨機顯示圖片(webside)", brief="隨機顯示圖片(webside)")
     async def web(self, ctx):
@@ -41,7 +41,7 @@ class React(Cog_Extension):
         random_pic = random.choice(jdata['url_pic'])
         await ctx.send(random_pic)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f'{ctx.author} 在 {ctx.guild} 的 {ctx.channel} 召喚網路隨機圖片!')
+        await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚網路隨機圖片!')
 
     
 

@@ -29,3 +29,14 @@ https://github.com/ChenArnold/Arnold_Bot
 
 @commands.command(help="用 $help command 顯示", brief="$help顯示")
 
+
+您可以指定從 <t:-8640000000000:R> 到 <t:8640000000000:R> 的任何確切時間（到秒）（4 月 19 日 -271821 到 9 月 12 日 275760）
+
+<t:123456789:d> 月/日/年
+<t:123456789:f> 年月日
+<t:123456789:t> 時間
+<t:123456789:D> 年月日
+<t:123456789:F> 工作日、月日、年時間
+<t:123456789:R> 自從
+<t:123456789:T> 時:分:秒
+https://home.gamer.com.tw/artwork.php?sn=5426813

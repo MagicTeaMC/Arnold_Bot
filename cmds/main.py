@@ -5,6 +5,7 @@ import datetime
 import json
 import random
 import asyncio
+import time
 #from discord_ui import InputText, Modal
 
 with open("Setting.json","r",encoding='utf8') as jFile:
@@ -110,19 +111,23 @@ class Main(Cog_Extension):
 
     @commands.command(help="顯示伺服器資訊", brief="顯示伺服器資訊")
     async def server(self,ctx):
-        now_time = ctx.guild.created_at
+        #now_time = ctx.guild.created_at
+        create_time = ctx.guild.created_at
+        now_time = time.mktime(create_time.timetuple())
         embed=discord.Embed(title="伺服器資訊", color=0x47f0b8,
         timestamp=datetime.datetime.now())
         embed.add_field(name="🟢名稱", value=ctx.guild.name, inline=True)
         embed.add_field(name="🆔伺服器ID", value =ctx.guild.id, inline = True)
         embed.add_field(name="👑擁有者", value=ctx.guild.owner.mention, inline=True)
-        embed.add_field(name="📆創建時間", value=now_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
+        embed.add_field(name="📆創建時間", value=f"<t:{int(now_time)}>", inline=True)
+        #embed.add_field(name="📆創建時間", value=now_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         embed.add_field(name="🌐描述", value=ctx.guild.description, inline=True)
         embed.add_field(name="👥成員數", value=ctx.guild.member_count, inline=True)
         embed.add_field(name="💬頻道", value = f'{len(ctx.guild.text_channels)} 個文字頻道 | {len(ctx.guild.voice_channels)} 個語音頻道', inline = True)
-        embed.add_field(name="📚規則頻道", value=ctx.guild.rules_channel.mention, inline=True)
-        async with ctx.typing():
-            await asyncio.sleep(2)
+        if ctx.guild.rules_channel == None:
+            embed.add_field(name="📚規則頻道", value="無規則頻道", inline=True)
+        else:
+            embed.add_field(name="📚規則頻道", value=ctx.guild.rules_channel.mention, inline=True)
         await ctx.send(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢該伺服器資訊")
@@ -131,6 +136,8 @@ class Main(Cog_Extension):
     async def userinfo(self,ctx,member:discord.Member):
         create_time = member.created_at
         join_time = member.joined_at
+        cr_time = time.mktime(create_time.timetuple())
+        jo_time = time.mktime(join_time.timetuple())
         embed=discord.Embed(title="ℹ️使用者資訊",description=member.mention,color=0x00ffee)
         embed.add_field(name="🐬名稱", value=member, inline=True)
         embed.add_field(name="🆔ID", value=member.id, inline=True)
@@ -146,8 +153,8 @@ class Main(Cog_Extension):
             embed.add_field(name="💡上線狀態", value="🌛閒置", inline=True)
         else:
             embed.add_field(name="💡上線狀態", value="⚫隱形或離線", inline=True)
-        embed.add_field(name="✡️帳號創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
-        embed.add_field(name="➡️加入時間", value=join_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
+        embed.add_field(name="✡️帳號創建時間", value=f"<t:{int(cr_time)}>", inline=True)
+        embed.add_field(name="➡️加入時間", value=f"<t:{int(jo_time)}>", inline=True)
         if member.timed_out_until == None:
             embed.add_field(name="🈲禁言時間", value="❌無禁言狀態", inline=True)
         else:
@@ -157,10 +164,10 @@ class Main(Cog_Extension):
             embed.add_field(name="🤖機器人", value="✅是", inline=True)
         else:
             embed.add_field(name="🤖機器人", value="❌否", inline=True)
-        embed.set_footer(text=f"查詢者{ctx.author.mention}")
-        await ctx.send(embed=embed)
+        embed.set_footer(text=f"查詢者{ctx.author}")
         roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
         embed.add_field(name="👥身分", value=f"{roles}", inline=False)
+        await ctx.send(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢{member.mention}的資訊")
 
@@ -172,7 +179,7 @@ class Main(Cog_Extension):
         roles_list = roles.split(",")
         roles_list.reverse()
         roles_list_reverse = "\n".join(roles_list)
-        embed.add_field(name="身分", value=roles_list_reverse, inline=False)
+        embed.add_field(name=f"身分組，共{len(ctx.guild.roles)}個", value=roles_list_reverse, inline=False)
         await ctx.send(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢伺服器身分組資訊")
