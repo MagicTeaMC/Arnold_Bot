@@ -9,93 +9,98 @@ import datetime
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
-
+async def get_participants(message):
+    participants = []
+    async for user in message.reactions[0].users():
+        if not user.bot:
+            participants.append(user)
+    return participants
 
 class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self,member):
         #成員加入
-        if int(member.guild.id)==int(1064894808419737640):
-            print(f'{member} 加入 {member.guild} 伺服器!')
+        if int(member.guild.id)==int(1091920457189572778):
+            print(f'{member} 加入 {member.guild} !')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} !')
         elif int(member.guild.id)==int(1078082303256969317):
-            print(f'{member} 加入 {member.guild} 伺服器!')
+            print(f'{member} 加入 {member.guild} !')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} !')
             role_ids = [1094181672708214824, 1094031097517580308, 1094030992311853117, 1094031438418022460]
             for role_id in role_ids:
                 role = discord.utils.get(member.guild.roles, id=role_id)
                 await member.add_roles(role)
 
         elif int(member.guild.id)==int(1061070549566103622):
-            print(f'{member} 加入 {member.guild} 伺服器!')
+            print(f'{member} 加入 {member.guild} !')
             channel = self.bot.get_channel(int(jdata["Star"]))
-            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} !')
         else:
-            print(f'{member} 加入 {member.guild} 伺服器!')
+            print(f'{member} 加入 {member.guild} !')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member.mention} 加入 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 加入 {member.guild} !')
             
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
-        if int(member.guild.id)==int(1064894808419737640):
-            print(f'{member}離開了{member.guild}伺服器!')
+        if int(member.guild.id)==int(1091920457189572778):
+            print(f'{member}離開了{member.guild}!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} !')
         elif int(member.guild.id)==int(1078082303256969317):
-            print(f'{member}離開了{member.guild}伺服器!')
+            print(f'{member}離開了{member.guild}!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} !')
         elif int(member.guild.id)==int(1061070549566103622):
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["Star"]))
-            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} !')
         else:
             print(f'{member}離開了{member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member.mention} 離開了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 離開了 {member.guild} !')
 
     @commands.Cog.listener()
     async def on_member_ban(self,guild,member):
         #成員離開 
-        if int(member.guild.id)==int(1064894808419737640):
+        if int(member.guild.id)==int(1091920457189572778):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} !')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} !')
         elif int(member.guild.id)==int(1061070549566103622):
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["Star"]))
-            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} !')
         else:
             print(f'{member} 被BAN離了 {member.guild}伺服器!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'{member.mention} 被BAN離了 {member.guild} 伺服器!')
+            await channel.send(f'{member.mention} 被BAN離了 {member.guild} !')
 
     @commands.Cog.listener()
     async def on_member_unban(self,guild,member):
         #成員離開
-        if int(member.guild.id)==int(1064894808419737640):
+        if int(member.guild.id)==int(1091920457189572778):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["join_channel"]))
-            await channel.send(f'在 {guild} 伺服器 {member.mention} 終於被解BAN了!')
+            await channel.send(f'在 {guild}  {member.mention} 終於被解BAN了!')
         elif int(member.guild.id)==int(1078082303256969317):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["bird_channel"]))
-            await channel.send(f'在 {guild} 伺服器 {member.mention} 終於被解BAN了!')
+            await channel.send(f'在 {guild}  {member.mention} 終於被解BAN了!')
         elif int(member.guild.id)==int(1061070549566103622):
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["Star"]))
-            await channel.send(f'在 {guild} 伺服器 {member.mention} 終於被解BAN了!')
+            await channel.send(f'在 {guild}  {member.mention} 終於被解BAN了!')
         else:
             print(f'{member} 在 {member.guild} UNBAN!')
             channel = self.bot.get_channel(int(jdata["後台"]))
-            await channel.send(f'在 {guild.mention} 伺服器 {member} 終於被解BAN了!')
+            await channel.send(f'在 {guild.mention}  {member} 終於被解BAN了!')
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self,data):
@@ -247,8 +252,10 @@ class Event(Cog_Extension):
                     embed.add_field(name="填寫者", value=msg.author.mention, inline=False)
                 except IndexError:
                     await msg.channel.send("填入的逗點過少，請更正並檢查後再傳送")
+                    await msg.add_reaction("❌")
                 except:
                     await msg.channel.send("發生錯誤，請檢查後再發送")
+                    await msg.add_reaction("❌")
                 else:
                     guild = self.bot.get_guild(msg.guild.id)
                     role = guild.get_role(1078082303256969325)
@@ -256,13 +263,35 @@ class Event(Cog_Extension):
                     await channel.send(embed=embed)
                     await msg.author.add_roles(role,reason="填寫資料加入公會")
                     await msg.add_reaction("✅")
-                    await msg.author.send(f"你加入了鷹之國公會")
-                    await msg.channel.send("輸入成功，已給予身分")
+                    rule_channel = "1078082303294705711"
+                    await msg.author.send(f"歡迎加入鷹之國公會，記得去得規定，犯錯不要來怪別人喔 <#{rule_channel}>")
+                    #await msg.channel.send("輸入成功，已給予身分")
                     await msg.author.edit(nick=f'[成員]{guildlist[0]}')
                     channel = self.bot.get_channel(int(jdata["後台"]))
                     await channel.send(str(msg.author.mention)+"加入鷹之國")
                     print(str(msg.author)+"加入鷹之國")
         else:
+            if msg.content.startswith('!抽獎'):
+                # 取得抽獎訊息的資訊
+                content = msg.content.split()
+                if len(content) < 3:
+                    await msg.channel.send('請輸入正確的指令格式: `!抽獎 獎品 結束時間(秒)`')
+                    return
+
+                prize = content[1]
+                end_time = int(content[2])
+
+                # 發送抽獎訊息並設置反應
+                giveaway_message = await msg.channel.send(f'🎉 **抽獎** 🎉\n\n獎品: {prize}\n結束時間: {end_time} 秒\n\n按下 👉 參加抽獎 👈')
+                await giveaway_message.add_reaction('👉')
+
+                # 等待設置時間到達並選擇獲勝者
+                await asyncio.sleep(end_time)
+                participants = await get_participants(giveaway_message)
+                winner = random.choice(participants)
+
+                # 發送獲勝者訊息
+                await msg.channel.send(f'恭喜 {winner.mention} 獲得抽獎獎品: {prize}！')
             if msg.content == ("apple") : #關鍵字
                 #特定關鍵字回覆
                 print ("有人輸入apple")
