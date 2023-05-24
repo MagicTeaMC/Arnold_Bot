@@ -6,20 +6,28 @@ import json
 import random
 import asyncio
 import time
+from discord import app_commands
+
 #from discord_ui import InputText, Modal
+#bot.slash = cog_ext.SlashCommandBot(bot)
 
 with open("Setting.json","r",encoding='utf8') as jFile:
     jdata = json.load(jFile)
 
 
 class Main(Cog_Extension):
-
-    @commands.command(help="顯示延遲", brief="顯示延遲")
+    '''
+    @commands.tree.command(name="say")
+    @app_commands.describe(thing_to_say = "說")
+    async def say(interaction: discord. Interaction, thing_to_say: str):
+        await interaction.response.send_message(f"{interaction.user.name} said:{thing_to_say}")
+    '''
+    @commands.command(help="顯示延遲",brief="顯示延遲")
     async def ping(self,ctx): 
         #ctx (上下文，回覆的上下關係) 
         #A：嗨(上文)(使用者，ID，伺服器，頻道)
         #B：安安(下文)
-        await ctx.send(f'{round(self.bot.latency*1000)}(ms)') #預設單位為秒
+        await ctx.reply(f'{round(self.bot.latency*1000)}(ms)') #預設單位為秒
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢ping")
 
@@ -39,7 +47,7 @@ class Main(Cog_Extension):
         embed.add_field(name="$原神圖片", value="顯示原神圖片", inline=True)
         embed.add_field(name="$回覆", value="顯示所有回覆訊息", inline=True)
         embed.add_field(name="其他", value="其實還有其他內容，等你去發現🤣", inline=False)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
         print("有人召喚了功能說明")
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚了功能說明!')
@@ -61,20 +69,20 @@ class Main(Cog_Extension):
         embed.add_field(name="我沒錢", value="", inline=True)
         embed.add_field(name="你有強迫症", value="", inline=True)
         embed.add_field(name="TNT拿來", value="", inline=True)
-        embed.add_field(name="氣死", value="", inline=False)
-        embed.add_field(name="NoTag", value="", inline=False)
-        embed.add_field(name="好問題", value="", inline=False)
-        embed.add_field(name="XD、xd", value="", inline=False)
-        embed.add_field(name="R.I.P.", value="", inline=False)
-        embed.add_field(name="gay", value="", inline=False)
-        embed.add_field(name="我來負責", value="", inline=False)
-        embed.add_field(name="你在偷看", value="", inline=False)
-        embed.add_field(name="可以色色", value="", inline=False)
-        embed.add_field(name="ㄍㄢˋ", value="", inline=False)
-        embed.add_field(name="打", value="", inline=False)
-        embed.add_field(name="我愛貓月", value="", inline=False)
-        embed.add_field(name="孤兒", value="", inline=False)
-        await ctx.send(embed=embed)
+        embed.add_field(name="氣死", value="", inline=True)
+        embed.add_field(name="NoTag", value="", inline=True)
+        embed.add_field(name="好問題", value="", inline=True)
+        embed.add_field(name="XD、xd", value="", inline=True)
+        embed.add_field(name="R.I.P.", value="", inline=True)
+        embed.add_field(name="gay", value="", inline=True)
+        embed.add_field(name="我來負責", value="", inline=True)
+        embed.add_field(name="你在偷看", value="", inline=True)
+        embed.add_field(name="可以色色", value="", inline=True)
+        embed.add_field(name="ㄍㄢˋ", value="", inline=True)
+        embed.add_field(name="打", value="", inline=True)
+        embed.add_field(name="我愛貓月", value="", inline=True)
+        embed.add_field(name="孤兒", value="", inline=True)
+        await ctx.reply(embed=embed)
         print("有人召喚了回覆說明")
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f'{ctx.author.mention} 在 {ctx.guild} 的 {ctx.channel.mention} 召喚了回覆說明!')
@@ -92,7 +100,7 @@ class Main(Cog_Extension):
     
 
     @commands.command(help="批量清除訊息，用法： $clean [數量]，例如： $clean 10", brief="批量刪除訊息")
-    async def clean(self,ctx,num:int,reason1):
+    async def clean(self,ctx,num:int,*reason1):
         await ctx.channel.purge(limit=num+1,reason=reason1)
         print("清理了",num,"則訊息,因為",reason1)
         channel = self.bot.get_channel(int(jdata["後台"]))
@@ -114,7 +122,7 @@ class Main(Cog_Extension):
         #now_time = ctx.guild.created_at
         create_time = ctx.guild.created_at
         now_time = time.mktime(create_time.timetuple())
-        embed=discord.Embed(title="伺服器資訊", color=0x47f0b8,
+        embed=discord.Embed(title="<a:Discord:1109588326295547955>伺服器資訊", color=0x47f0b8,
         timestamp=datetime.datetime.now())
         embed.add_field(name="🟢名稱", value=ctx.guild.name, inline=True)
         embed.add_field(name="🆔伺服器ID", value =ctx.guild.id, inline = True)
@@ -128,7 +136,8 @@ class Main(Cog_Extension):
             embed.add_field(name="📚規則頻道", value="無規則頻道", inline=True)
         else:
             embed.add_field(name="📚規則頻道", value=ctx.guild.rules_channel.mention, inline=True)
-        await ctx.send(embed=embed)
+        embed.add_field(name="<a:nitro:1104283716693528657>加成次數/等級", value=f"{ctx.guild.premium_subscription_count}/{ctx.guild.premium_tier}", inline=True)
+        await ctx.reply(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢該伺服器資訊")
 
@@ -138,7 +147,7 @@ class Main(Cog_Extension):
         join_time = member.joined_at
         cr_time = time.mktime(create_time.timetuple())
         jo_time = time.mktime(join_time.timetuple())
-        embed=discord.Embed(title="ℹ️使用者資訊",description=member.mention,color=0x00ffee)
+        embed=discord.Embed(title="<a:Discord:1109588326295547955>使用者資訊",description=member.mention,color=0x00ffee)
         embed.add_field(name="🐬名稱", value=member, inline=True)
         embed.add_field(name="🆔ID", value=member.id, inline=True)
         if str(member.display_name) == str(member.name):
@@ -164,23 +173,24 @@ class Main(Cog_Extension):
             embed.add_field(name="🤖機器人", value="✅是", inline=True)
         else:
             embed.add_field(name="🤖機器人", value="❌否", inline=True)
+        
         embed.set_footer(text=f"查詢者{ctx.author}")
         roles = " ".join([role.mention for role in member.roles if role.name != "@everyone"])
         embed.add_field(name="👥身分", value=f"{roles}", inline=False)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢{member.mention}的資訊")
 
 
     @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
     async def roles(self,ctx):
-        embed=discord.Embed(title="身分組一覽", color=0xc13de6)
+        embed=discord.Embed(title="<a:Discord:1109588326295547955>身分組一覽", color=0xc13de6)
         roles = ",".join([role.mention for role in ctx.guild.roles])
         roles_list = roles.split(",")
         roles_list.reverse()
         roles_list_reverse = "\n".join(roles_list)
         embed.add_field(name=f"身分組，共{len(ctx.guild.roles)}個", value=roles_list_reverse, inline=False)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢伺服器身分組資訊")
 
@@ -189,7 +199,7 @@ class Main(Cog_Extension):
         guild = self.bot.get_guild(ctx.guild.id)
         role = guild.get_role(ID)
         create_time = role.created_at
-        embed=discord.Embed(title="身分組資訊", description=role.mention, color=0xc13de6)
+        embed=discord.Embed(title="<a:Discord:1109588326295547955>身分組資訊", description=role.mention, color=0xc13de6)
         embed.add_field(name="創建時間", value=create_time.strftime("%m/%d/%Y, %H:%M:%S"), inline=True)
         embed.add_field(name="ID", value=role.id, inline=True)
         embed.add_field(name="成員數", value=len(role.members), inline=True)
@@ -209,9 +219,60 @@ class Main(Cog_Extension):
             embed.add_field(name="Kick", value="✅是", inline=True)
         else:
             embed.add_field(name="Kick", value="❌否", inline=True)
-        await ctx.send(embed=embed)
+        if role.permissions.manage_channels:
+            embed.add_field(name="管理頻道", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理頻道", value="❌否", inline=True)
+        if role.permissions.manage_guild:
+            embed.add_field(name="管理伺服器", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理伺服器", value="❌否", inline=True)
+        if role.permissions.manage_roles:
+            embed.add_field(name="管理身分", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理身分", value="❌否", inline=True)
+        if role.permissions.manage_emojis:
+            embed.add_field(name="管理表情符號", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理表情符號", value="❌否", inline=True)
+        if role.permissions.manage_emojis_and_stickers:
+            embed.add_field(name="管理表情符號和貼紙", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理表情符號和貼紙", value="❌否", inline=True)
+        if role.permissions.manage_events:
+            embed.add_field(name="管理活動", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理活動", value="❌否", inline=True)
+        if role.permissions.manage_messages:
+            embed.add_field(name="管理訊息", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理訊息", value="❌否", inline=True)
+        if role.permissions.manage_nicknames:
+            embed.add_field(name="管理暱稱", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理暱稱", value="❌否", inline=True)
+        if role.permissions.manage_permissions:
+            embed.add_field(name="管理權限", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理權限", value="❌否", inline=True)
+        if role.permissions.manage_threads:
+            embed.add_field(name="管理討論串", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理討論串", value="❌否", inline=True)
+        if role.permissions.manage_webhooks:
+            embed.add_field(name="管理webhooks", value="✅是", inline=True)
+        else:
+            embed.add_field(name="管理webhooks", value="❌否", inline=True)
+        await ctx.reply(embed=embed)
         channel = self.bot.get_channel(int(jdata["後台"]))
-        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢 {role.mention} 的資訊")
+        await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢 {role} 的資訊")
+        
+    @commands.command(help="顯示機器人服務的群組")
+    async def guildlist(self,ctx):
+        guilds = self.bot.guilds
+        guild_names = [guild.name for guild in guilds]
+        guilds_str = "\n".join(guild_names)
+        await ctx.reply(f"目前機器人正在服務以下群組：\n{guilds_str}")
 
     @commands.command(help="顯示身分組成員，用法： $rolemember [身分組ID]", brief="顯示身分組成員")
     async def rolemember(self,ctx,ID:int):
@@ -221,8 +282,31 @@ class Main(Cog_Extension):
         roleuser = ",".join([_.mention for _ in role.members])
         embed=discord.Embed(title="身分組成員", description=role.mention, color=0x3d9de6)
         embed.add_field(name="成員", value=roleuser, inline=True)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
+        
+    @commands.command(help="取得群組邀請連結，用法： $guileinvit [群組ID]", brief="取得群組邀請連結")
+    async def guileinvit(self,ctx,ID:int):
+        #guild = 
+        pass
+    
+'''
+    role_id = "1094203836467511328"
+    @commands.command(name='give-role')
+    @commands.has_role(int(role_id))  # 設定身分限制
+    async def give_role(ctx, member: discord.Member):
+        role = ctx.guild.get_role(1081307034923827313)
+        await member.add_roles(role)
+        await ctx.send(f'已給予 {member.mention} 身分組：{role.name}')
 
+    # 處理身分限制的錯誤訊息
+    @give_role.error
+    async def give_role_error(ctx, error):
+        if isinstance(error, commands.MissingRole):
+            await ctx.send('您沒有權限執行該命令')
+        else:
+            print(error)
+'''
+'''
 
 #group群組
 #subcommand 子命令
@@ -233,7 +317,7 @@ class Main(Cog_Extension):
     @codetest.command()
     async def python(self,ctx):
         await ctx.send("python")
-
+'''
 
 async def setup(bot):
     await bot.add_cog(Main(bot))

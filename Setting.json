@@ -1,11 +1,18 @@
 {
     "TOKEN":"MTA1MDUyNDEzMTEzMDYwOTc5NQ.G2Q51a.xjWdiQWzyo8-G4E2ZrsvCu9W1pDqHtq8Nu_HvU",
-    "join_channel":"1086047080541327441",
-    "leave_channel":"1086047080541327441",
+    "join_channel":"1093013352311177316",
+    "leave_channel":"1093013352311177316",
     "bird_channel":"1078082303294705712",
     "Star":"1081899506955718786",
     "後台":"1086401446934749185",
+    "Maoyue後台":"1102187461179871252",
+    "Maoyue錯誤":"1102187427029856276",
+    "Maoyue_start":"1102187379009269810",
+    "機器人加入":"1102191302495436810",
+    "錯誤":"1102003108877434980",
+    "start":"1102024753360928768",
     "加入公會":"1078082303659622420",
+
 
     "time":"060000",
     "pic":".\\Arnold_Bot\\pictrue\\螢幕擷取畫面 2022-11-14 214127.jpg",
@@ -25,13 +32,6 @@
                 ".\\pictrue\\胡桃2.jpg",
                 ".\\pictrue\\凌華1.jpg",
                 ".\\pictrue\\雷神.jpg"],
-    "確實":".\\pictrue\\確實.jpg",
-    "不知道":".\\pictrue\\不知道.jpg",
-    "犯法":".\\pictrue\\犯法.png",
-    "沒錢":".\\pictrue\\沒錢.jpg",
-    "氣死":".\\pictrue\\氣死.jpg",
-    "強迫症":".\\pictrue\\強迫症.jpg",
-    "TNT":".\\pictrue\\TNT.jpg",
     "NoTag":".\\pictrue\\NOTAG.mov",
     "好問題":".\\pictrue\\好問題.jpg",
     "XD":".\\pictrue\\xd.jpg",
@@ -46,5 +46,12 @@
     "打木頭":".\\pictrue\\DC梗圖\\打木頭.png",
     "愛貓月":".\\pictrue\\DC梗圖\\愛貓月.png",
     "孤兒院":".\\pictrue\\DC梗圖\\孤兒院.png",
-    "url_pic":["https://school.tc.edu.tw/open-message/193518/get-file/637cda26a53e5f23a2784ab0.jpg"]
+    "url_pic":["https://school.tc.edu.tw/open-message/193518/get-file/637cda26a53e5f23a2784ab0.jpg"],
+    "確實":".\\pictrue\\確實.jpg",
+    "不知道":".\\pictrue\\不知道.jpg",
+    "犯法":".\\pictrue\\犯法.png",
+    "沒錢":".\\pictrue\\沒錢.jpg",
+    "氣死":".\\pictrue\\氣死.jpg",
+    "強迫症":".\\pictrue\\強迫症.jpg",
+    "TNT":".\\pictrue\\TNT.jpg"
 }
