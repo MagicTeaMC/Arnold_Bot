@@ -184,13 +184,24 @@ class Main(Cog_Extension):
 
     @commands.command(help="顯示伺服器身分組資訊", brief="顯示身分組資訊")
     async def roles(self,ctx):
-        embed=discord.Embed(title="<a:Discord:1109588326295547955>身分組一覽", color=0xc13de6)
-        roles = ",".join([role.mention for role in ctx.guild.roles])
+        
+        roles = ",".join([role.name for role in ctx.guild.roles])
         roles_list = roles.split(",")
         roles_list.reverse()
         roles_list_reverse = "\n".join(roles_list)
-        embed.add_field(name=f"身分組，共{len(ctx.guild.roles)}個", value=roles_list_reverse, inline=False)
-        await ctx.reply(embed=embed)
+        #embed=discord.Embed(title="<a:Discord:1109588326295547955>身分組一覽，共{len(ctx.guild.roles)}個", color=0xc13de6)
+        #embed.add_field(name=f"身分組", value=roles_list_reverse, inline=True)
+        roles_id = ",".join([str(role.id) for role in ctx.guild.roles])
+        roles_list_id = roles_id.split(",")
+        roles_list_id.reverse()
+        roles_list_reverse_id = "\n".join(roles_list_id)
+        #embed.add_field(name=f"ID", value=roles_list_reverse, inline=True)
+        #await ctx.reply(embed=embed)
+        roles_list.pop()
+        roles_list_id.pop()
+        await ctx.reply(f"該群組身分組共有{len(ctx.guild.roles)-1}個")
+        for i in range(0,len(ctx.guild.roles)-1):
+            await ctx.send(f"{i+1}：{roles_list[i]}，{roles_list_id[i]}")
         channel = self.bot.get_channel(int(jdata["後台"]))
         await channel.send(f"{ctx.author.mention}在{ctx.guild}的{ctx.channel.mention}查詢伺服器身分組資訊")
 
@@ -270,9 +281,10 @@ class Main(Cog_Extension):
     @commands.command(help="顯示機器人服務的群組")
     async def guildlist(self,ctx):
         guilds = self.bot.guilds
-        guild_names = [guild.name for guild in guilds]
-        guilds_str = "\n".join(guild_names)
-        await ctx.reply(f"目前機器人正在服務以下群組：\n{guilds_str}")
+        await ctx.reply(f"目前服務群組數{len(guilds)}個")
+        for i in range(0,len(guilds)):
+            str = f"{i+1}：{guilds[i].name},{guilds[i].id}"
+            await ctx.send(str)
 
     @commands.command(help="顯示身分組成員，用法： $rolemember [身分組ID]", brief="顯示身分組成員")
     async def rolemember(self,ctx,ID:int):
@@ -284,10 +296,12 @@ class Main(Cog_Extension):
         embed.add_field(name="成員", value=roleuser, inline=True)
         await ctx.reply(embed=embed)
         
-    @commands.command(help="取得群組邀請連結，用法： $guileinvit [群組ID]", brief="取得群組邀請連結")
-    async def guileinvit(self,ctx,ID:int):
-        #guild = 
-        pass
+    @commands.command(help="取得群組邀請連結，用法： $guildinvit [伺服器ID]", brief="取得群組邀請連結")
+    async def guildinvit(self,ctx,ID:int):
+        #await ctx.reply("用法：`$guildinvit [ˋ伺服器ID]`，若不知伺服器ID可使用`$guildlist`查詢")
+        guild = self.bot.get_guild(ID)
+        invite = await guild.text_channels[0].create_invite()
+        await ctx.reply(invite)
     
 '''
     role_id = "1094203836467511328"

@@ -14,8 +14,8 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_join(self,member):
         #成員加入
-        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712}
-        #1.星落 2.鷹之國
+        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712,1111991460330487858:1111999958099447808}
+        #1.星落 2.鷹之國 3.RPG
         if member.guild.id in channels:
             channel_id = channels[member.guild.id]
             channel = self.bot.get_channel(channel_id)
@@ -23,6 +23,15 @@ class Event(Cog_Extension):
                 join = 1078082303294705714
                 await channel.send(f'{member.mention} 加入 {member.guild} ，請至 <#{join}> 輸入 「加入公會」 以得知加入方案! 目前成員數：{len(member.guild.members)}')
                 role_ids = [1094181672708214824, 1094031097517580308, 1094030992311853117, 1094031438418022460]
+                for role_id in role_ids:
+                    role = discord.utils.get(member.guild.roles, id=role_id)
+                    await member.add_roles(role)
+            elif member.guild.id == 1061070549566103622:
+                pic = discord.File(jdata['歡迎'])
+                await channel.send(f'歡迎{member.mention} 加入 {member.guild} 目前成員數：{len(member.guild.members)}!!\n<a:caarrow:1112307247805112330>請至 <#1082442675254472726> 領取身分',file=pic)
+            elif member.guild.id == 1111991460330487858:
+                await channel.send(f'{member.mention} 加入 {member.guild} ， 目前成員數：{len(member.guild.members)} !!')
+                role_ids = [1112005013770879036, 1112005646674559036,1112010322547581039]
                 for role_id in role_ids:
                     role = discord.utils.get(member.guild.roles, id=role_id)
                     await member.add_roles(role)
@@ -35,7 +44,7 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_remove(self,member):
         #成員離開
-        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712}
+        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712,1111991460330487858:1111999958099447808}
         #1.星落 2.鷹之國
         if member.guild.id in channels:
             channel_id = channels[member.guild.id]
@@ -48,7 +57,7 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_ban(self,guild,member):
         #成員離開
-        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712}
+        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712,1111991460330487858:1111999958099447808}
         #1.星落 2.鷹之國
         if member.guild.id in channels:
             channel_id = channels[member.guild.id]
@@ -61,7 +70,7 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_member_unban(self,guild,member):
         #成員離開
-        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712}
+        channels = {1061070549566103622:1108387516836479126,1078082303256969317:1078082303294705712,1111991460330487858:1111999958099447808}
         #1.星落 2.鷹之國
         if member.guild.id in channels:
             channel_id = channels[member.guild.id]
@@ -76,38 +85,28 @@ class Event(Cog_Extension):
         #1.新增反應 --> data
         channel = self.bot.get_channel(int(jdata["後台"]))
         guild = self.bot.get_guild(data.guild_id)
-        print(data.member,guild,data.emoji)
-        if str(data.emoji) == '💀' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('輸入💀')
-            role = guild.get_role(1078082303256969318)
-            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
+        if data.member.id == 876035367348867102:
+            print(data.member,guild,data.emoji)
+        #msgID 1086515736723337237
+        dict1 = {"💀":1078082303256969318,"🔹":1078082303256969320,"🈲":1078082303256969319,"🇨":1093223889234051173}
+        dict2 = {"♂️":1112010232864964608,"♀️":1112010431750480084,"🚼":1112010572976889936,"♈":1112011159739047966,"♉":1112011297115090954,"♊":1112011326332616764,"♋":1112011445887049829,"♌":1112011466233622578,"♍":1112011489067413505,"♎":1112011514912702475,"♏":1112011556847366144,"♐":1112011574866087957,"♑":1112011599981592689,"♒":1112011617811570718,"♓":1112011639340929076,"🇹🇼":1112013401439359037,"🇭🇰":1112013492044705854,"🇲🇴":1112013520972828834,"🇲🇾":1112013565507948664,"🇨🇳":1112013601218252881,"🏳️‍🌈":1112013640967667853,"<a:Verify:1104283724658524311>":1111997407102763089}
+        if str(data.emoji) in dict1 and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            getrole = dict1[str(data.emoji)]
+            role = guild.get_role(getrole)
+            await channel.send(f"{data.member.mention} 點擊 {data.emoji}")
 
             #3.給予身分
-            await data.member.add_roles(role,reason="新增反映後台身分")
+            await data.member.add_roles(role,reason="新增反映身分")
             await data.member.send(f"你取得了 {role} 這個身分組!")
+        if str(data.emoji) in dict2 and str(data.guild_id) == str(1111991460330487858): #2.確認圖案
+            if str(data.message_id) == str(1112192005439750225) or str(data.message_id) == str(1112221292142284931):
+                getrole = dict2[str(data.emoji)]
+                role = guild.get_role(getrole)
+                await channel.send(f"{data.member.mention} 點擊 {data.emoji}")
 
-        if str(data.emoji) == '🔹' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('輸入🔹')
-            role = guild.get_role(1078082303256969320)
-            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
-            #3.給予身分
-            await data.member.add_roles(role,reason="新增反映原神身分")
-            await data.member.send(f"你取得了 {role} 這個身分組!")
-
-        if str(data.emoji) == '🈲' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('輸入 🈲')
-            role = guild.get_role(1078082303256969319)
-            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
-            #3.給予身分
-            await data.member.add_roles(role,reason="新增反映18+身分")
-            await data.member.send(f"你取得了 {role} 這個身分組!")
-        if str(data.emoji) == '🇨' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): 
-            print('輸入 🇨')
-            role = guild.get_role(1093223889234051173)
-            await channel.send(f"{data.member.mention} 輸入 {data.emoji}")
-            #3.給予身分
-            await data.member.add_roles(role,reason="新增反映ChatGPT身分")
-            await data.member.send(f"你取得了 {role} 這個身分組!")
+                #3.給予身分
+                await data.member.add_roles(role,reason="新增反映身分")
+                await data.member.send(f"你取得了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self,data):
@@ -115,64 +114,63 @@ class Event(Cog_Extension):
         channel = self.bot.get_channel(int(jdata["後台"]))
         guild = self.bot.get_guild(data.guild_id)
         user = guild.get_member(data.user_id)
-        print(f'移除{data.member},{guild},{data.emoji}')
-        if str(data.emoji) == '💀' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('移除💀')
-            role = guild.get_role(1078082303256969318)
+        #print(f'移除{data.member},{guild},{data.emoji}')
+        #msgID 1086515736723337237
+        dict1 = {"💀":1078082303256969318,"🔹":1078082303256969320,"🈲":1078082303256969319,"🇨":1093223889234051173}
+        dict2 = {"♂️":1112010232864964608,"♀️":1112010431750480084,"🚼":1112010572976889936,"♈":1112011159739047966,"♉":1112011297115090954,"♊":1112011326332616764,"♋":1112011445887049829,"♌":1112011466233622578,"♍":1112011489067413505,"♎":1112011514912702475,"♏":1112011556847366144,"♐":1112011574866087957,"♑":1112011599981592689,"♒":1112011617811570718,"♓":1112011639340929076,"🇹🇼":1112013401439359037,"🇭🇰":1112013492044705854,"🇲🇴":1112013520972828834,"🇲🇾":1112013565507948664,"🇨🇳":1112013601218252881,"🏳️‍🌈":1112013640967667853,"<a:Verify:1104283724658524311>":1111997407102763089}
+        if str(data.emoji) in dict1 and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
+            getrole = dict1[str(data.emoji)]
+            role = guild.get_role(getrole)
             #3.給予身分
             await channel.send(f"{user.mention} 移除 {data.emoji}")
-            await user.remove_roles(role,reason="移除反映後台身分")
+            await user.remove_roles(role,reason="移除反映身分")
             await user.send(f"你移除了 {role} 這個身分組!")
+        if str(data.emoji) in dict2 and str(data.guild_id) == str(1111991460330487858): #2.確認圖案
+            if str(data.message_id) == str(1112192005439750225) or str(data.message_id) == str(1112221292142284931):
+                getrole = dict2[str(data.emoji)]
+                role = guild.get_role(getrole)
+                #3.給予身分
+                await channel.send(f"{user.mention} 移除 {data.emoji}")
+                await user.remove_roles(role,reason="移除反映身分")
+                await user.send(f"你移除了 {role} 這個身分組!")
 
-        if str(data.emoji) == '🔹' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('移除🔹')
-            role = guild.get_role(1078082303256969320)
-            #3.給予身分
-            await channel.send(f"{user.mention} 移除 {data.emoji}")
-            await user.remove_roles(role,reason="移除反映原神身分")
-            await user.send(f"你移除了 {role} 這個身分組!")
-
-        if str(data.emoji) == '🈲' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): #2.確認圖案
-            print('移除🈲')
-            role = guild.get_role(1078082303256969319)
-            #3.給予身分
-            await channel.send(f"{user.mention} 移除 {data.emoji}")
-            await user.remove_roles(role,reason="移除反映18+身分")
-            await user.send(f"你移除了 {role} 這個身分組!")
-        if str(data.emoji) == '🇨' and str(data.message_id) == str(1086515736723337237) and str(data.guild_id) == str(1078082303256969317): 
-            print('🇨')
-            role = guild.get_role(1093223889234051173)
-            #3.給予身分
-            await channel.send(f"{user.mention} 移除 {data.emoji}")
-            await user.remove_roles(role,reason="移除反映ChatGPT身分")
-            await user.send(f"你移除了 {role} 這個身分組!")
 
     @commands.Cog.listener()
     async def on_raw_message_delete(self,msg):
-        if msg.guild_id == int(1061070549566103622):
-            channel_d = self.bot.get_channel(msg.channel_id)
-            self.channel = self.bot.get_channel(1095943588694736907)
-            embed=discord.Embed(title="訊息刪除", color=0xff5c5c,
-            timestamp=datetime.datetime.now())
-            embed.add_field(name="原訊息", value=msg.cached_message.content, inline=False)
-            embed.add_field(name="原作者", value=msg.cached_message.author.mention, inline=True)
-            embed.add_field(name="頻道", value=channel_d.mention, inline=True)
-            await self.channel.send(embed=embed)
+        dict1 = {1061070549566103622:1095943588694736907,1111991460330487858:1112230555321376788}
+        if msg.guild_id in dict1:
+            if msg.cached_message != None:
+                guild = self.bot.get_guild(msg.guild_id)
+                #async for entry in guild.audit_logs(limit=1,action=discord.AuditLogAction.message_delete):
+                    #delete_user = entry
+                channel_s = dict1[msg.guild_id]
+                channel_d = self.bot.get_channel(msg.channel_id)
+                self.channel = self.bot.get_channel(channel_s)
+                embed=discord.Embed(title="訊息刪除", color=0xff5c5c,
+                timestamp=datetime.datetime.now())
+                embed.add_field(name="原訊息", value=msg.cached_message.content, inline=False)
+                embed.add_field(name="原作者", value=msg.cached_message.author.mention, inline=True)
+                embed.add_field(name="頻道", value=channel_d.mention, inline=True)
+                #embed.add_field(name="刪除者", value=delete_user.mention, inline=True)
+                await self.channel.send(embed=embed)
             
     @commands.Cog.listener()
     async def on_raw_message_edit(self,msg):
-        if msg.guild_id == int(1061070549566103622):
-            channel_e = self.bot.get_channel(msg.channel_id)
-            self.channel = self.bot.get_channel(1095943588694736907)
-            message = await channel_e.fetch_message(msg.message_id)
-            embed=discord.Embed(title="訊息編輯", color=0x63f8ab,
-            timestamp=datetime.datetime.now())
-            embed.add_field(name="編輯前的訊息", value=msg.cached_message.content, inline=False)
-            embed.add_field(name="編輯後的訊息", value=message.content, inline=False)
-            embed.add_field(name="原作者", value=msg.cached_message.author.mention, inline=True)
-            embed.add_field(name="頻道", value=channel_e.mention, inline=True)
-            embed.add_field(name="訊息連結", value=message.jump_url, inline=True)
-            await self.channel.send(embed=embed)
+        dict1 = {1061070549566103622:1095943588694736907,1111991460330487858:1112230555321376788}
+        if msg.cached_message != None:
+            if msg.guild_id in dict1 and msg.cached_message.author.bot == False:
+                channel_s = dict1[msg.guild_id]
+                channel_e = self.bot.get_channel(msg.channel_id)
+                self.channel = self.bot.get_channel(channel_s)
+                message = await channel_e.fetch_message(msg.message_id)
+                embed=discord.Embed(title="訊息編輯", color=0x63f8ab,
+                timestamp=datetime.datetime.now())
+                embed.add_field(name="編輯前的訊息", value=msg.cached_message.content, inline=False)
+                embed.add_field(name="編輯後的訊息", value=message.content, inline=False)
+                embed.add_field(name="原作者", value=msg.cached_message.author.mention, inline=True)
+                embed.add_field(name="頻道", value=channel_e.mention, inline=True)
+                embed.add_field(name="訊息連結", value=message.jump_url, inline=True)
+                await self.channel.send(embed=embed)
     
     #'''
     @commands.Cog.listener()
@@ -212,7 +210,7 @@ class Event(Cog_Extension):
         embed.add_field(name="👥成員數", value=guild.member_count, inline=True)
         embed.add_field(name="🛂服務群組數", value=len(self.bot.guilds), inline=True)
         role_ch = guild.rules_channel
-        invite = await role_ch.create_invite()
+        invite = await guild.channels[0].create_invite()
         embed.add_field(name="該群組邀請連結", value=(invite), inline=True)
         
         channel = self.bot.get_channel(int(jdata["Maoyue後台"]))
@@ -256,6 +254,20 @@ class Event(Cog_Extension):
     @commands.Cog.listener()
     async def on_message(self,msg):
         #on_message必須寫在一個def裡
+        if msg.channel.id == int(1112180741569253456) and msg.author != self.bot.user:
+            channel = self.bot.get_channel(1085498285516664882)
+            if msg.content != None:
+                await channel.send(f"`[{msg.guild}]` `{msg.author}`：{msg.content}")
+            if msg.attachments != None:
+                for i in range(0,len(msg.attachments)):
+                    await channel.send(msg.attachments[i].url)
+        if msg.channel.id == int(1085498285516664882) and msg.author != self.bot.user:
+            channel = self.bot.get_channel(1112180741569253456)
+            if msg.content != None:
+                await channel.send(f"`[{msg.guild}]` `{msg.author}`：{msg.content}")
+            if msg.attachments != None:
+                for i in range(0,len(msg.attachments)):
+                    await channel.send(msg.attachments[i].url)
         guildlist = []
         if msg.channel.id == int(1078082303294705714)and msg.author != self.bot.user:
             if msg.content == ("加入"):
